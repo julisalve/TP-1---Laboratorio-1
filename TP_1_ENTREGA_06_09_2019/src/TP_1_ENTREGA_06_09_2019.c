@@ -45,15 +45,17 @@ int main()
         printf("Ingrese una opcion del MENU \n");
         scanf("%d",&opcionMenu);
 
-
-        while(opcionMenu!=1 && opcionMenu!=2 && opcionMenu!=5 && (flagPrimerOperando==0 || flagSegundoOperando==0))
+        while(opcionMenu!=1 &&
+        	  opcionMenu!=2 &&
+			  opcionMenu!=5 &&
+			  (flagPrimerOperando==0 ||
+			   flagSegundoOperando==0))
         {
             if(opcionMenu==3 || opcionMenu==4)
             {
                 printf("Aun no hay datos cargados. Por favor elija otra opcion del Menu \n");
                 scanf("%d",&opcionMenu);
             }
-
             else if(opcionMenu>5 || opcionMenu<1)
             {
                 printf("No es una opcion valida del Menu. Reingrese otra opcion. \n");
@@ -74,9 +76,6 @@ int main()
                      "No es un numero valido. Error. \n");
             flagSegundoOperando=1;
         }
-
-//    while(flagPrimerOperando!=0 && flagSegundoOperando!=0)
-//    {
         if(opcionMenu==3)
         {
             sumarFloat(primerOperando, segundoOperando,&suma);
@@ -112,12 +111,10 @@ int main()
     }
     while(opcionMenu!=5);
 
-
-    if(opcionMenu==5) //si pongo 1er operando, 2 do y luego salgo ok printf. Si pongo mal las opciones primero y quiero salir no me toma el pritf.
+    if(opcionMenu==5)
     {
         printf("Calculadora apagada \n");
     }
-
     return 0;
 }
 

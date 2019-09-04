@@ -14,6 +14,7 @@
 
 #define EXIT_ERROR -1
 
+
 float getFloat(float *resultado,
                char *mensaje,
                char *mensajeError);
