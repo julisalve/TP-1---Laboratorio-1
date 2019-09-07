@@ -8,7 +8,7 @@
  *\param *resultado Es el numero obtenido.
  *\param *mensaje Es el mensaje que se muestra.
  *\param *mensajeError Es el mensaje que muestra en caso de no poder obtener un numero flotante.
- *\return Devuelve si se pudo o no tomar un numero flotante.
+ *\return Devuelve 0 si se pudo tomar un numero flotante o un -1 en caso contrario.
  *
  */
 
@@ -42,7 +42,7 @@ float getFloat(float *resultado,
  *\param primerNumero Es el primer numero a sumar.
  *\param segundoNumero Es el segundo numero a sumar.
  *\param *suma Es la suma de los dos numeros anteriores.
- *\return Devuelve si se pudo realizar la suma.
+ *\return Devuelve 0 si se pudo realizar la suma.
  *
  */
 
@@ -59,7 +59,7 @@ int sumarFloat(float primerNumero, float segundoNumero,float *suma)
  *\param primerNumero Es el primer numero a sumar.
  *\param segundoNumero Es el segundo numero a sumar.
  *\param *resta Es la resta del primer numero menos el segundo.
- *\return Devuelve si se pudo realizar la resta.
+ *\return Devuelve 0 si se pudo realizar la resta.
  *
  */
 int restarFloat(float primerNumero, float segundoNumero,float *resta)
@@ -75,7 +75,7 @@ int restarFloat(float primerNumero, float segundoNumero,float *resta)
  *\param primerNumero Es el primer numero, tomado como dividendo.
  *\param segundoNumero Es el segundo numero, tomado como divisor.
  *\param *division Es la division del primer numero y el segundo.
- *\return Devuelve si se pudo realizar la dision o no.
+ *\return Devuelve 0 si se pudo realizar la dision, caso contrario devuelve -1 .
  *
  */
 int dividirFloat(float primerNumero, float segundoNumero,float *division)
@@ -96,7 +96,7 @@ int dividirFloat(float primerNumero, float segundoNumero,float *division)
  *\param primerNumero Es el primer numero a multiplicar.
  *\param segundoNumero Es el segundo numero a multiplicar.
  *\param *multiplicacion Es la multiplicacion de los numeros anteriores.
- *\return Devuelve si se pudo realizar la multiplicacion.
+ *\return Devuelve 0 si se pudo realizar la multiplicacion.
  *
  */
 int multiplicarFloat(float primerNumero, float segundoNumero,float *multiplicacion)
@@ -114,7 +114,7 @@ int multiplicarFloat(float primerNumero, float segundoNumero,float *multiplicaci
  *\param segundoNumero Es el segundo numero.
  *\param *factorialPrimerNumero Es el factorial del primer numero.
  *\param *factorialSegundoNumero Es el factorial del segundo numero.
- *\return Devuelve si se pudieron realizar las operaciones.
+ *\return Devuelve 0 si se pudieron realizar las operaciones.
  *
  */
 int factorialDeFloat(float primerNumero, float segundoNumero,float *factorialPrimerNumero, float *factorialSegundoNumero)

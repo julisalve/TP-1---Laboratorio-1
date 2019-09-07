@@ -32,8 +32,22 @@ int main()
     {
         system("cls");
         printf ("MENU \n\n");
-        printf("1. Ingresar 1er operando (A=%.2f)\n",primerOperando);
-        printf("2. Ingresar 2do operando (B=%.2f)\n",segundoOperando);
+        if(flagPrimerOperando==0)
+        {
+        	printf("1. Ingresar 1er operando (A= x)\n");
+        }
+        else
+        {
+        	printf("1. Ingresar 1er operando (A=%.2f)\n",primerOperando);
+        }
+        if(flagSegundoOperando==0)
+        {
+        	printf("2. Ingresar 2do operando (B= y)\n");
+        }
+        else
+        {
+        	printf("2. Ingresar 2do operando (B=%.2f)\n",segundoOperando);
+        }
         printf("3. Calcular todas las operaciones.\n");
         printf("a) Calcular la suma \n");
         printf("b) Calcular la resta \n");
