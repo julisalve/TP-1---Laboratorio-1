@@ -217,9 +217,9 @@ int main (void)
 			}
 			break;
 
-		case 5:
-			printf("APLICACION CERRADA.\n");
-			break;
+//		case 5:
+//			printf("APLICACION CERRADA.\n");
+//			break;
 		}
 		if(opcion!=5)
 		{
@@ -236,6 +236,11 @@ int main (void)
 						printf("HASTA LUEGO.\n");
 						break;
 					}
+		}
+		else
+		{
+			printf("APLICACION CERRADA.\n");
+			break;
 		}
 
 
