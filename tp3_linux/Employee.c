@@ -17,6 +17,7 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 	Employee *retorno=NULL;
 	Employee* this;
 	this= new_Employee();
+	int pasarANumero(char * item, int numero)
 			if(this!=NULL &&
 					employee_setId(this,idStr)==0 &&
 					employee_setNombre(this, nombreStr)==0 &&
@@ -197,3 +198,15 @@ static int isValidLetra(char *item)
 //	return retorno;
 //}
 //
+
+
+int pasarANumero(char * item, int *numero)
+{
+	int retorno=-1;
+	if(item!=NULL && strcmp(item,0)>=0 && strcmp(item,9)<=0)
+	{
+		numero=atoi(item);
+		retorno=EXIT_SUCCESS;
+	}
+	return retorno;
+}
