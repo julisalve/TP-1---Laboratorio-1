@@ -5,6 +5,7 @@
 
 static int isValidNumero(char *item);
 static int isValidLetra(char *item);
+int pasarANumero(char * item, int *numero);
 
 Employee* employee_new()
 {
@@ -16,21 +17,18 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 {
 	Employee *retorno=NULL;
 	Employee* this;
-	this= new_Employee();
-	int pasarANumero(char * item, int numero)
-			if(this!=NULL &&
-					employee_setId(this,idStr)==0 &&
-					employee_setNombre(this, nombreStr)==0 &&
-					employee_setHorasTrabajadas(this, horasTrabajadasStr)==0 &&
-					employee_setSueldo(this, sueldoStr)==0)
-			{
-					retorno=this;
-			}
-			else
-			{
-				employee_delete(this);
-			}
-	return *retorno;
+	int id;
+	this= employee_new();
+	pasarANumero(idStr, id);
+	if(this!=NULL && employee_setId(this,idStr)==0 && employee_setNombre(this, nombreStr)==0 && employee_setHorasTrabajadas(this, horasTrabajadasStr)==0 && employee_setSueldo(this, sueldoStr)==0)
+	{
+		retorno=this;
+	}
+	else
+	{
+		employee_delete(this);
+	}
+	return retorno;
 }
 
 
