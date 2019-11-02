@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "general.h"
 
-static int isValidNumero(char *item);
 static int isValidLetra(char *item);
-int pasarANumero(char * item, int *numero);
+
 
 Employee* employee_new()
 {
@@ -18,9 +18,22 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 	Employee *retorno=NULL;
 	Employee* this;
 	int id;
+	int horasTrabajadas;
+	int sueldo;
 	this= employee_new();
-	pasarANumero(idStr, id);
-	if(this!=NULL && employee_setId(this,idStr)==0 && employee_setNombre(this, nombreStr)==0 && employee_setHorasTrabajadas(this, horasTrabajadasStr)==0 && employee_setSueldo(this, sueldoStr)==0)
+	if(pasarANumeroInt(idStr, &id)!=0)
+	{
+		printf("ERROR, el id no es un numero \n");
+	}
+	if(pasarANumeroInt(horasTrabajadasStr,&horasTrabajadas)!=0)
+	{
+		printf("ERROR, las horas trabajadas no es un valor numerico \n");
+	}
+	if(pasarANumeroInt(sueldoStr,&sueldo)!=0)
+	{
+		printf("ERROR, el sueldo no es un valor numerico \n");
+	}
+	if(this!=NULL && employee_setId(this,id)==0 && employee_setNombre(this, nombreStr)==0 && employee_setHorasTrabajadas(this, horasTrabajadas)==0 && employee_setSueldo(this, sueldo)==0)
 	{
 		retorno=this;
 	}
@@ -38,12 +51,12 @@ void employee_delete(Employee*this)
 }
 
 
-int employee_setId(Employee* this,int id)
+int employee_setId(Employee* this,int item)
 {
 	int retorno =-1;
-		if(this!=NULL && isValidNumero(id)) //hacer la funcion de validar el numero positivo y ademas pasar el id
+	if(this!=NULL) //hacer la funcion de validar el numero positivo y ademas pasar el id
 		{
-			this->id=id;
+			this->id=item;
 			retorno=0;
 		}
 
@@ -56,7 +69,7 @@ int employee_getId(Employee* this,int* id)
 
 	if(this!=NULL && id>=0)
 	{
-		id=this->id;
+		*id=this->id;
 		retorno=0;
 	}
 	return retorno;
@@ -89,7 +102,7 @@ int employee_getNombre(Employee* this,char* nombre)
 int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
 {
 	int retorno =-1;
-		if(this!=NULL && isValidNumero(horasTrabajadas)) //hacer la funcion de validar el numero positivo y ademas pasar el id
+		if(this!=NULL) //hacer la funcion de validar el numero positivo y ademas pasar el id
 		{
 			this->horasTrabajadas=horasTrabajadas;
 			retorno=0;
@@ -104,7 +117,7 @@ int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
 
 	if(this!=NULL && horasTrabajadas>0)
 	{
-		horasTrabajadas=this->horasTrabajadas;
+		*horasTrabajadas=this->horasTrabajadas;
 		retorno=0;
 	}
 	return retorno;
@@ -138,16 +151,24 @@ int employee_getSueldo(Employee* this,int* sueldo)
 
 
 
-static int isValidNumero(char *item)
-{
-	int retorno=-1;
-	return retorno;
-}
+//static int isValidNumero(int *numero)
+//{
+//	int retorno=-1;
+//	if(numero<=9 && numero >=0)
+//	{
+//
+//	}
+//	return retorno;
+//}
 
 
 static int isValidLetra(char *item)
 {
 	int retorno=-1;
+	if(strcmp(item,'a')>=0 || strcmp(item,'A')>=0 || strcmp(item,'z')<=0 || strcmp(item,'Z')<=0)
+	{
+		retorno=EXIT_SUCCESS;
+	}
 	return retorno;
 }
 
@@ -198,13 +219,3 @@ static int isValidLetra(char *item)
 //
 
 
-int pasarANumero(char * item, int *numero)
-{
-	int retorno=-1;
-	if(item!=NULL && strcmp(item,0)>=0 && strcmp(item,9)<=0)
-	{
-		numero=atoi(item);
-		retorno=EXIT_SUCCESS;
-	}
-	return retorno;
-}
