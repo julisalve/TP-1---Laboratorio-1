@@ -54,7 +54,11 @@ int getInt(int *resultado,
 int pasarANumeroInt(char * item, int *numero)
 {
 	int retorno=-1;
-	if(item!=NULL && strcmp(item,'0')>=0 && strcmp(item,'9')<=0)
+	int i;
+	int cant=strlen(item);
+	for(i=0;i<cant;i++)
+	{
+		if(item!=NULL && item[i]>='0' && item[i]<='9' && item[i]!='\0')
 	{
 		*numero=atoi(item);
 		retorno=EXIT_SUCCESS;
@@ -62,6 +66,7 @@ int pasarANumeroInt(char * item, int *numero)
 	else
 	{
 		printf("ERROR.\n");
+	}
 	}
 	return retorno;
 }

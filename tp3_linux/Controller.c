@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include "LinkedList.h"
 #include "Employee.h"
-
+#include "parser.h"
+#include "general.h"
 
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
  *
@@ -13,8 +14,8 @@
  */
 int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 {
-		FILE* pFile;
-		pFile = fopen(path,"r");
+	FILE* pFile;
+	pFile = fopen(path,"r");
 		if(pFile != NULL)
 		{
 			parser_EmployeeFromText(pFile,pArrayListEmployee);
@@ -24,7 +25,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 		{
 			printf("ERROR: El archivo no pudo abrirse. \n");
 		}
-		fclose(pFile);
+
 	 return 1;
 }
 
@@ -63,37 +64,42 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
 	int id;
+	char idStr[4096];
 	char nombreStr[4096];
 	char horasTrabajadasStr[4096];
 	char sueldo [4096];
 
-	Employee *nuevoEmpleado;
+Employee *nuevoEmpleado;
 	if(pArrayListEmployee!=NULL)
 	{
-		id=buscarMaximoIdGenerado(pArrayListEmployee,id)+1;
+	id=buscarMaximoIdGenerado(pArrayListEmployee);
+	sprintf(idStr,"%d",id);
 		getString(nombreStr,"Ingrese un nombre \n","NO es un nombre valido \n",2,100,2);
 		getString(horasTrabajadasStr,"Ingrese horas trabajadas \n","NO es un dato valido \n",1,1000,2);
-		getString(sueldo,"Ingrese sueldo \n","NO es un sueldo valido \n",2,100000,2);
-		nuevoEmpleado=employee_newParametros(id,)
-				// no hay que escribirlo en el archivo despues?? o con add??
-
-
+		getString(sueldo,"Ingrese sueldo \n","NO es un sueldo valido \n",2,1000000,2);
+		nuevoEmpleado=employee_newParametros(idStr,nombreStr,horasTrabajadasStr,sueldo);
+		ll_add(pArrayListEmployee,nuevoEmpleado);
 	}
 	return 1;
 }
 
-int buscarMaximoIdGenerado(LinkedList *pArrayListEmployee,int *id)
+int buscarMaximoIdGenerado(LinkedList *pArrayListEmployee)
 {
 	int retorno=-1;
 	int maximoId=0;
 	int i;
+	Employee *pEmpleado;
 	if(pArrayListEmployee!=NULL)
 	{
-		for(i=0;)
-		{
-			if(pArrayListEmployee[i])
-		}
+		for(i=0;i<ll_len(pArrayListEmployee); i++)
+	    {
+	        pEmpleado = ll_get(pArrayListEmployee, i);
+	        if(pEmpleado->id>maximoId)
+	        {
+	        	maximoId=pEmpleado->id;
+	        }
 
+		}retorno=maximoId;
 	}
 	return retorno;
 }
@@ -107,7 +113,111 @@ int buscarMaximoIdGenerado(LinkedList *pArrayListEmployee,int *id)
  */
 int controller_editEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+//	 Employee *this;
+//	    int idEmpleado, horasTrabajadas, sueldo;
+//	    int nuevasHorasTrabajadas, nuevoSueldo;
+//	    char nombreAux[51], nombre[51];
+//	    int modificar = 0;
+//	    int opcionMenu= 0;
+//	    char confirma = 0;
+//	    char continuarSubMenuModificar = 's';
+//	    int i;
+//	    printf("\tMODIFICAR EMPLEADO\n");
+//	    idEmpleado = getIntOnly("Ingrese ID: ");
+//	    for(i=0; i<ll_len(pArrayListEmployee) ; i++)
+//	    {
+//	        this = (Employee*) ll_get(pArrayListEmployee, i);
+//	        if(this->id == idEmpleado)
+//	        {
+//
+//	            modificar = 1;
+//	            break;
+//	        }
+//
+//	    }
+//
+//	    if(modificar == 1)
+//	    {
+//	        do
+//	        {
+//	            system("cls");
+//	            printf("\t MENU MODIFICAR\n\n");
+//	            printf("\n  Id  -  Nombre  -   Horas  - Sueldo ");
+//	            printf("\n%4d%10s%10d    %8d\n\n", this->id, this->nombre, this->horasTrabajadas, this->sueldo);
+//
+//	            printf("1. Modificar nombre\n");
+//	            printf("2. Modificar horas trabajadas\n");
+//	            printf("3. Modificar sueldo\n");
+//	            printf("4. Regresar al menu anterior\n\n");
+//
+//	            opcionMenu = getIntOnly("Ingrese una opcion: \n");
+//
+//	            switch(opcionMenu)
+//	            {
+//	            case 1:
+//	                employee_getNombre(this, nombre);
+//	                getValidStringRango("\nIngrese nombre: ","\nError. Solo se admiten letras",nombreAux,50);
+//	                confirma = getValidChar("\nRealmente quiere modificarlo?: (s/n)","\nReingrese", 's','n');
+//
+//	                if(confirma == 's')
+//	                {
+//	                    employee_setNombre(this,nombreAux);
+//	                    printf("\nEl nombre ha sido modificado");
+//	                }
+//	                else
+//	                {
+//	                    printf("\nLa modificacion ha sido cancelada");
+//	                }
+//
+//	                system("pause");
+//
+//	                break;
+//
+//	            case 2:
+//	                employee_getHorasTrabajadas(this, &horasTrabajadas);
+//	                nuevasHorasTrabajadas =getValidInt("\nIngrese horas trabajadas: ", "\nError. Solo se permiten numeros");
+//	                confirma = getValidChar("\nRealmente quiere modificarlo?: (s/n) ","\nReingrese", 's','n');
+//
+//	                if(confirma == 's')
+//	                {
+//	                    employee_setHorasTrabajadas(this,nuevasHorasTrabajadas);
+//	                    printf("\nLas horas trabajadas han sido modificado");
+//	                }
+//	                else
+//	                {
+//	                    printf("\nLa modificacion ha sido cancelada");
+//	                }
+//
+//	                system("pause");
+//
+//	                break;
+//
+//	            case 3:
+//	                nuevoSueldo =getValidInt("\nIngrese el nuevo sueldo: ", "\nError. Solo se permiten numeros");
+//	                employee_getSueldo(this,&sueldo);
+//	                confirma = getValidChar("\nRealmente quiere modificarlo?: (s/n) ","\nReingrese", 's','n');
+//
+//	                if(confirma == 's')
+//	                {
+//	                    employee_setSueldo(this,nuevoSueldo);
+//	                    printf("\nEl sueldo ha sido modificado");
+//	                }
+//	                else
+//	                {
+//	                    printf("\nLa modificacion ha sido cancelada");
+//	                }
+//                break;
+//	            case 4:
+//	                continuarSubMenuModificar = 'n';
+//	                break;
+//	            }
+//	        }
+//	        while(continuarSubMenuModificar == 's');
+//	    }
+//	    return 1;
+//
+//
+	return 1;
 }
 
 /** \brief Baja de empleado
@@ -131,6 +241,14 @@ int controller_removeEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_ListEmployee(LinkedList* pArrayListEmployee)
 {
+
+    Employee *pEmpleado;
+    int i;
+    for(i=0; i<ll_len(pArrayListEmployee); i++)
+    {
+        pEmpleado = ll_get(pArrayListEmployee, i);
+        printf("%4d %15s %4d %6d\n", pEmpleado->id, pEmpleado->nombre, pEmpleado->horasTrabajadas, pEmpleado->sueldo);
+    }
     return 1;
 }
 

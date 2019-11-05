@@ -26,7 +26,7 @@ int main()
  int opcion;
     LinkedList* listaEmpleados = ll_newLinkedList();
     do{
-            printf("\MENU\n\n");
+            printf("\n\nMENU\n\n");
             printf("1. Cargar los datos de los empleados desde el archivo data.csv (modo texto). \n");
             printf("2. Cargar los datos de los empleados desde el archivo data.bin (modo binario). \n");
             printf("3. Alta de empleado\n");
@@ -39,20 +39,19 @@ int main()
             printf("10. Salir\n");
 
             getInt(&opcion,
-            		  "Elija una opcion",
-            		  "No es una opcion valida",
+            		  "Elija una opcion\n",
+            		  "No es una opcion valida \n",
             		  1,
             		  10,
             		  2);
-
-        switch(opcion)
-        {
-            case 1:
-                controller_loadFromText("data.csv",listaEmpleados);
-                break;
+   switch(opcion)
+         {
+        case 1:
+           	controller_loadFromText("data.csv",listaEmpleados);
+           	 break;
             case 2:
-                controller_loadFromBinary("data.bin", listaEmpleados);// incompleto
-                break;
+                controller_loadFromBinary("data.csv", listaEmpleados);// incompleto
+               	break;
             case 3:
                 controller_addEmployee(listaEmpleados);
                 break;

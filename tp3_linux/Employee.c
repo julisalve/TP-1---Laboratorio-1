@@ -4,12 +4,28 @@
 #include <string.h>
 #include "general.h"
 
-static int isValidLetra(char *item);
+static int isValidLetra(char *item, int cant);
 
 
 Employee* employee_new()
 {
 	return malloc(sizeof(Employee));
+//	Employee *this;
+//	this= malloc(sizeof(Employee));
+//	if(this == NULL)
+//	    {
+//	        printf("\nNo hay mas lugar para cargar empleados");
+//
+//	    }
+//
+//	    else
+//	    {
+//	        this->id = 0;
+//	        strcpy(this->nombre, "");
+//	        this->horasTrabajadas = 0;
+//	        this->sueldo = 0;
+//	    }
+	return this;
 }
 
 
@@ -21,6 +37,8 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 	int horasTrabajadas;
 	int sueldo;
 	this= employee_new();
+	if(this!=NULL)
+	{
 	if(pasarANumeroInt(idStr, &id)!=0)
 	{
 		printf("ERROR, el id no es un numero \n");
@@ -33,7 +51,21 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 	{
 		printf("ERROR, el sueldo no es un valor numerico \n");
 	}
-	if(this!=NULL && employee_setId(this,id)==0 && employee_setNombre(this, nombreStr)==0 && employee_setHorasTrabajadas(this, horasTrabajadas)==0 && employee_setSueldo(this, sueldo)==0)
+//id = atoi(idStr);
+//
+//horasTrabajadas = atoi(horasTrabajadasStr);
+//	sueldo = atoi(sueldoStr);
+
+//	printf("id char %s, id numero %d \n horas trab string %s , hs trabajads numero %d \n sueldo str %s .- sueldo numero %d \n - nombre %s \n",idStr,id, horasTrabajadasStr,horasTrabajadas,sueldoStr,sueldo,nombreStr);
+//int a;
+//a=	employee_setId(this,id);
+//	printf("lo q devuelve la funcion set id%d\n",a);
+//	a=employee_setSueldo(this, sueldo);
+//	printf("lo q devuelve la funcion set sueldo%d\n",a);
+//	a=	employee_setNombre(this, nombreStr);
+//	printf("lo q devuelve la funcion set nombre%d\n",a);
+
+	if( employee_setId(this,id)==0 && employee_setNombre(this, nombreStr)==0 && employee_setHorasTrabajadas(this, horasTrabajadas)==0 && employee_setSueldo(this, sueldo)==0)
 	{
 		retorno=this;
 	}
@@ -41,6 +73,8 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 	{
 		employee_delete(this);
 	}
+	}
+
 	return retorno;
 }
 
@@ -78,12 +112,11 @@ int employee_getId(Employee* this,int* id)
 int employee_setNombre(Employee* this,char* nombre)
 {
 	int retorno =-1;
-	if(this!=NULL && isValidLetra(nombre)) //hacer la funcion de validar el numero positivo y ademas pasar el id
+	if(this!=NULL && isValidLetra(nombre, 4096)) // hacer la funcion de validar el numero positivo y ademas pasar el id
 	{
 		strcpy(this->nombre,nombre);
 		retorno=0;
 	}
-
 	return retorno;
 }
 
@@ -126,7 +159,7 @@ int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
 int employee_setSueldo(Employee* this,int sueldo)
 {
 	int retorno =-1;
-		if(this!=NULL && isValidNumero(sueldo)) //hacer la funcion de validar el numero positivo y ademas pasar el id
+		if(this!=NULL ) //hacer la funcion de validar el numero positivo y ademas pasar el id
 		{
 			this->sueldo=sueldo;
 			retorno=0;
@@ -141,7 +174,7 @@ int employee_getSueldo(Employee* this,int* sueldo)
 
 	if(this!=NULL && sueldo>0)
 	{
-		sueldo=this->sueldo;
+		*sueldo=this->sueldo;
 		retorno=0;
 	}
 	return retorno;
@@ -162,13 +195,19 @@ int employee_getSueldo(Employee* this,int* sueldo)
 //}
 
 
-static int isValidLetra(char *item)
+static int isValidLetra(char *item, int cant)
 {
 	int retorno=-1;
-	if(strcmp(item,'a')>=0 || strcmp(item,'A')>=0 || strcmp(item,'z')<=0 || strcmp(item,'Z')<=0)
-	{
-		retorno=EXIT_SUCCESS;
-	}
+//	int i;
+//	for(i=0;i<cant;i++)
+//	{
+//		while((item[i] != '\0' && item[i]== ' ') || (item[i] >= 'a' && item[i] <= 'z')|| (item[i] >= 'A' && item[i] <= 'Z'))
+//		{
+//			retorno=EXIT_SUCCESS;
+//		}
+//
+//	}
+//	printf("retorno del isvalidletra : %d",retorno);
 	return retorno;
 }
 

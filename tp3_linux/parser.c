@@ -12,46 +12,48 @@
  */
 int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)// recibe un elemento, lo construye y lo agrega al array.
 {
-		int retorno =-1;
-		char id[4096];
-		char nombre[4096];
-		char horasTrabajadas[4096];
-		char sueldo[4096];
-		int r;
-		int flagPrimerRenglonDescripciones=0;
-		Employee *nuevoEmpleado;
-
-		if(pArrayListEmployee!=NULL)
+	int retorno =-1;
+	int r;
+	char id[4096];
+	char nombre[4096];
+	char horasTrabajadas[4096];
+	char sueldo[4096];
+	int flagPrimerRenglon=0;
+	Employee *nuevoEmpleado;
+	if(pFile!=NULL)
+//	if(pArrayListEmployee!=NULL)
+	{
+		while(!feof(pFile))
 		{
-		do{
 			r=fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",
-							id,
-							nombre,
-							horasTrabajadas,
-							sueldo);
-			if(flagPrimerRenglonDescripciones==0)
+					id,
+					nombre,
+					horasTrabajadas,
+					sueldo);
+			if(flagPrimerRenglon==0)
 			{
-				flagPrimerRenglonDescripciones=1;
+				flagPrimerRenglon=1;
 				continue;
 			}
-			else if (flagPrimerRenglonDescripciones==1 && r==4)
+
+			else if(flagPrimerRenglon==1 && r==4)
+//			if(r==4)
 			{
-			nuevoEmpleado= employee_newParametros(id,nombre,horasTrabajadas,sueldo);
+				nuevoEmpleado= employee_newParametros(id,nombre,horasTrabajadas,sueldo);
 			if(nuevoEmpleado!=NULL)
-			{
-			ll_add(pArrayListEmployee,nuevoEmpleado);
-			retorno=EXIT_SUCCESS;
-			printf("Carga exitosa. \n");
+				{
+					ll_add(pArrayListEmployee,nuevoEmpleado);
+					retorno=EXIT_SUCCESS;
+				}
+//				else
+//				{
+//					printf("Error en la carga\n");
+//				}
 			}
-			else
-			{
-				printf("Error en la carga\n");
-			}
-			}
-		}while(!feof(pFile));
-		fclose(pFile);
 		}
-    return retorno;
+	}
+
+	return retorno;
 }
 
 /** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo binario).
@@ -65,25 +67,19 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
 	int retorno=-1;
 	int r;
-	int flagPrimerRenglonDescripciones=0;
 	Employee *nuevoEmpleado;
 	if(pArrayListEmployee!=NULL)
 	{
 		nuevoEmpleado=employee_new();
+		fread(nuevoEmpleado,sizeof(Employee),1,pFile);
 		if(nuevoEmpleado!=NULL)
 		{
 			do{
 				r=fread(nuevoEmpleado,sizeof(Employee),1,pFile);
-				if( flagPrimerRenglonDescripciones==0)
-				{
-					flagPrimerRenglonDescripciones=1;
-					continue;
-				}
-				else if (flagPrimerRenglonDescripciones==1 && r==1)
+				if (r==1)
 				{
 					ll_add(pArrayListEmployee,nuevoEmpleado);
 					retorno=EXIT_SUCCESS;
-					printf("Carga exitosa. \n");
 				}
 			}while(!feof(pFile));
 		}
@@ -91,7 +87,11 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 		{
 			printf("Error en la carga\n");
 		}
+		if(r==1)
+		{
+			printf("Carga exitosa. \n");
+		}
 		fclose(pFile);
 	}
-	return 1;
+	return retorno;
 }
