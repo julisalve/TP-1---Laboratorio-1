@@ -20,6 +20,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 		{
 			parser_EmployeeFromText(pFile,pArrayListEmployee);
 			printf("\n Operacion exitosa.\n");
+			fclose(pFile);
 		}
 		else
 		{
@@ -44,12 +45,12 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
     		{
     			parser_EmployeeFromBinary(pFileBin,pArrayListEmployee);
     			printf("\n Operacion exitosa.\n");
+    			fclose(pFileBin);
     		}
     		else
     		{
     			printf("ERROR: El archivo no pudo abrirse. \n");
     		}
-    		fclose(pFileBin);
 
     return 1;
 }
@@ -69,14 +70,23 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 	char horasTrabajadasStr[4096];
 	char sueldo [4096];
 
-Employee *nuevoEmpleado;
+	Employee *nuevoEmpleado;
 	if(pArrayListEmployee!=NULL)
 	{
 	id=buscarMaximoIdGenerado(pArrayListEmployee);
+	printf("id %d \n",id);
 	sprintf(idStr,"%d",id);
 		getString(nombreStr,"Ingrese un nombre \n","NO es un nombre valido \n",2,100,2);
+
+		printf("nombre %s",nombreStr);
 		getString(horasTrabajadasStr,"Ingrese horas trabajadas \n","NO es un dato valido \n",1,1000,2);
+
+		printf("hola 1 horas trabajadas %s",horasTrabajadasStr);
 		getString(sueldo,"Ingrese sueldo \n","NO es un sueldo valido \n",2,1000000,2);
+
+		printf("hola 2  sueldo %s",sueldo);
+		printf("id str %s , horas trabajdas %s , sueldos str %s,\n",idStr,horasTrabajadasStr,sueldo);
+
 		nuevoEmpleado=employee_newParametros(idStr,nombreStr,horasTrabajadasStr,sueldo);
 		ll_add(pArrayListEmployee,nuevoEmpleado);
 	}
@@ -273,7 +283,16 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+//	FILE *pFile;
+//	Employee *nuevoEmpleado;
+//
+//	if(pArrayListEmployee!=NULL)
+//	{
+//	fopen(path,"w");
+//	fwrite(,sizeof(Employee),1,pFile);
+//	}
+
+	return 1;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).

@@ -25,7 +25,7 @@ Employee* employee_new()
 //	        this->horasTrabajadas = 0;
 //	        this->sueldo = 0;
 //	    }
-	return this;
+//	return this;
 }
 
 

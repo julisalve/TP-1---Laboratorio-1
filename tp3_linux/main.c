@@ -28,14 +28,14 @@ int main()
     do{
             printf("\n\nMENU\n\n");
             printf("1. Cargar los datos de los empleados desde el archivo data.csv (modo texto). \n");
-            printf("2. Cargar los datos de los empleados desde el archivo data.bin (modo binario). \n");
+            printf("2. Cargar los datos de los empleados desde el archivo data.csv (modo binario). \n");
             printf("3. Alta de empleado\n");
             printf("4. Modificar datos de empleado\n");
             printf("5. Baja de empleado\n");
             printf("6. Listar empleados\n");
             printf("7. Ordenar empleados\n");
             printf("8. Guardar los datos de los empleados en el archivo data.csv (modo texto).\n");
-            printf("9. Guardar los datos de los empleados en el archivo data.bin (modo binario).\n");
+            printf("9. Guardar los datos de los empleados en el archivo data.csv (modo binario).\n");
             printf("10. Salir\n");
 
             getInt(&opcion,
@@ -47,10 +47,12 @@ int main()
    switch(opcion)
          {
         case 1:
-           	controller_loadFromText("data.csv",listaEmpleados);
+        		controller_loadFromText("data.csv",listaEmpleados);
+        		controller_ListEmployee(listaEmpleados);
            	 break;
             case 2:
-                controller_loadFromBinary("data.csv", listaEmpleados);// incompleto
+                controller_loadFromBinary("data.bin", listaEmpleados);// incompleto
+                controller_ListEmployee(listaEmpleados);
                	break;
             case 3:
                 controller_addEmployee(listaEmpleados);
@@ -119,3 +121,45 @@ int main()
     return 0;
 }*/
 
+
+
+//TP 4
+//this =malloc(sizeof(LInkedList));
+//
+//
+//if(thus!=NULL) {returnaUX THIS->SIZE
+//
+//int salto;
+//node *pNodo=NULL;
+//IF(this!=NULL && nodeindex>=0 && nodeindex<this -> size)
+//pnodo = this ->pFisrtNOde;
+//for(saltos=0;saltos<nodeindex;saltos++)
+//pnodo = pnodo->pnextnodo
+//RETURN pNodo
+//
+//
+// node * pNOdo;
+// node *pnodoanterior
+//if(this!=NULL && nodeindex>=0 && nodeindex <=this ->size)
+// pnodo=malloc(sizeof(pnodo));
+// if(pnodo!=NULL) return -1;
+//returnaux=0;
+// this->size++;
+//pnodo->pelement = pelement;
+//if(nodeindex==0)
+//pnodo ->pnext = this ->firstnode
+//this ->firstnode = pnodo
+//else
+//pnodoant = getnose(this,nodeindex-1)
+//pnodo->pnext = pnodoanter->pnext;
+//pnodoante->pnext =pnodo;
+
+
+// borrar lista
+//delete borrar memoria
+//size si esta en cero
+//push poner un elemento en donde se quiera
+//pop devolver el elemento de cualqier posicion . get del size y sacarlo remove
+//contanis(ver si existe un elemento en la lissta)
+//contains all (pasa array de elementos y verificar que la sublista es sublista del la lista original
+// agregar remove node.
