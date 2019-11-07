@@ -48,12 +48,10 @@ int main()
          {
         case 1:
         		controller_loadFromText("data.csv",listaEmpleados);
-        		controller_ListEmployee(listaEmpleados);
-           	 break;
+        		break;
             case 2:
                 controller_loadFromBinary("data.bin", listaEmpleados);// incompleto
-                controller_ListEmployee(listaEmpleados);
-               	break;
+                break;
             case 3:
                 controller_addEmployee(listaEmpleados);
                 break;
@@ -82,84 +80,3 @@ int main()
     }while(opcion != 10);
 
 }
-
-
-//int f1(int *a, int b,int (*foo)(int,int)) {
-//	*a = *a * 2;
-//	*a = foo(*a,b);
-//	return (*a);
-//}
-//
-//int f2(int a, int b) {
-//	 a = b*b;
-//	 return a;
-//}
-//
-//
-//enum colors {lets,find,course};
-//int main()
-//{
-//	printf("%d %d %d",course,lets,find);
-//	return 0;
-//}
-
-
-/*
-int main()
-{
-    int option = 0;
-
-    LinkedList* listaEmpleados = ll_newLinkedList();
-    do{
-        switch(option)
-        {
-            case 1:
-                controller_loadFromText("data.csv",listaEmpleados);
-                break;
-        }
-    }while(option != 10);
-    return 0;
-}*/
-
-
-
-//TP 4
-//this =malloc(sizeof(LInkedList));
-//
-//
-//if(thus!=NULL) {returnaUX THIS->SIZE
-//
-//int salto;
-//node *pNodo=NULL;
-//IF(this!=NULL && nodeindex>=0 && nodeindex<this -> size)
-//pnodo = this ->pFisrtNOde;
-//for(saltos=0;saltos<nodeindex;saltos++)
-//pnodo = pnodo->pnextnodo
-//RETURN pNodo
-//
-//
-// node * pNOdo;
-// node *pnodoanterior
-//if(this!=NULL && nodeindex>=0 && nodeindex <=this ->size)
-// pnodo=malloc(sizeof(pnodo));
-// if(pnodo!=NULL) return -1;
-//returnaux=0;
-// this->size++;
-//pnodo->pelement = pelement;
-//if(nodeindex==0)
-//pnodo ->pnext = this ->firstnode
-//this ->firstnode = pnodo
-//else
-//pnodoant = getnose(this,nodeindex-1)
-//pnodo->pnext = pnodoanter->pnext;
-//pnodoante->pnext =pnodo;
-
-
-// borrar lista
-//delete borrar memoria
-//size si esta en cero
-//push poner un elemento en donde se quiera
-//pop devolver el elemento de cualqier posicion . get del size y sacarlo remove
-//contanis(ver si existe un elemento en la lissta)
-//contains all (pasa array de elementos y verificar que la sublista es sublista del la lista original
-// agregar remove node.
