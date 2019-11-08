@@ -61,7 +61,6 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 	int retorno=-1;
 	int r;
 	Employee *nuevoEmpleado;
-	int flagPrimerRenglon=0;
 	if(pArrayListEmployee!=NULL && pFile!=NULL)
 	{
 		nuevoEmpleado=employee_new();
@@ -69,12 +68,7 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 		{
 			do{
 				r=fread(nuevoEmpleado,sizeof(Employee),1,pFile);
-				if(flagPrimerRenglon==0)
-				{
-					flagPrimerRenglon=1;
-					continue;
-				}
-				if (r==1 && flagPrimerRenglon==1)
+					if (r==1 )
 				{
 					ll_add(pArrayListEmployee,nuevoEmpleado);
 					retorno=EXIT_SUCCESS;

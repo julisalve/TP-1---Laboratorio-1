@@ -5,8 +5,12 @@
 
 
 
-static int isValidLetra(char *item, int cant);
-
+/** \brief Pide espacio en memoria para un nuevo empleado
+ *
+ * \param
+ * \return Puntero a Employee
+ *
+ */
 
 Employee* employee_new()
 {
@@ -14,6 +18,15 @@ Employee* employee_new()
 }
 
 
+/** \brief Setea parametros a un empleado nuevo
+ *
+ * \param idStr
+ * \param nombreStr
+ * \param horasTrabajadasStr
+ * \param sueldoStr
+ * \return el nuevo empleado con sus campos completos
+ *
+ */
 Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr, char* sueldoStr)
 {
 	Employee *retorno=NULL;
@@ -49,16 +62,29 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 }
 
 
+/** \brief BOrra de la memoria a un empleado
+ *
+ * \param this
+ * \return el espacio liberado
+ *
+ */
 void employee_delete(Employee*this)
 {
 	free(this);
 }
 
 
+/** \brief Setea id a un empleado
+ *
+ * \param this
+ * \param item es el id pasado
+ * \return devuelve 0 en caso de exito o -1 en caso de error
+ *
+ */
 int employee_setId(Employee* this,int item)
 {
 	int retorno =-1;
-	if(this!=NULL) //hacer la funcion de validar el numero positivo y ademas pasar el id
+	if(this!=NULL)
 		{
 			this->id=item;
 			retorno=0;
@@ -67,9 +93,17 @@ int employee_setId(Employee* this,int item)
 		return retorno;
 }
 
+
+/** \brief Obtiene id de un empleado
+ *
+ * \param this
+ * \param id
+ * \return devuelve 0 en caso de exito o -1 en caso de error
+ *
+ */
 int employee_getId(Employee* this,int* id)
 {
-	int retorno=1;
+	int retorno=-1;
 
 	if(this!=NULL && id>=0)
 	{
@@ -79,10 +113,18 @@ int employee_getId(Employee* this,int* id)
 	return retorno;
 }
 
+
+/** \brief Setea nombre a un empleado
+ *
+ * \param this
+ * \param nombre
+ * \return devuelve 0 en caso de exito o -1 en caso de error
+ *
+ */
 int employee_setNombre(Employee* this,char* nombre)
 {
 	int retorno =-1;
-	if(this!=NULL && isValidLetra(nombre, 4096)) // hacer la funcion de validar el numero positivo y ademas pasar el id
+	if(this!=NULL)
 	{
 		strcpy(this->nombre,nombre);
 		retorno=0;
@@ -90,9 +132,17 @@ int employee_setNombre(Employee* this,char* nombre)
 	return retorno;
 }
 
+
+/** \brief Obtiene el nombre de un empleado
+ *
+ * \param this
+ * \param nombre
+ * \return devuelve 0 en caso de exito o -1 en caso de error
+ *
+ */
 int employee_getNombre(Employee* this,char* nombre)
 {
-	int retorno=1;
+	int retorno=-1;
 
 		if(this!=NULL && nombre!=NULL)
 		{
@@ -102,10 +152,18 @@ int employee_getNombre(Employee* this,char* nombre)
 		return retorno;
 }
 
+
+/** \brief Setea horas trabajadas a un empleado
+ *
+ * \param this
+ * \param horasTrabajadas
+ * \return devuelve 0 en caso de exito o -1 en caso de error
+ *
+ */
 int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
 {
 	int retorno =-1;
-		if(this!=NULL) //hacer la funcion de validar el numero positivo y ademas pasar el id
+		if(this!=NULL)
 		{
 			this->horasTrabajadas=horasTrabajadas;
 			retorno=0;
@@ -113,9 +171,17 @@ int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
 		return retorno;
 }
 
+
+/** \brief Obtiene horas trabajads de un empleado
+ *
+ * \param this
+ * \param horasTrabajadas
+ * \return devuelve 0 en caso de exito o -1 en caso de error
+ *
+ */
 int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
 {
-	int retorno=1;
+	int retorno=-1;
 
 	if(this!=NULL && horasTrabajadas>0)
 	{
@@ -125,10 +191,18 @@ int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
 	return retorno;
 }
 
+
+/** \brief Setea sueldo a un empleado
+ *
+ * \param this
+ * \param sueldo
+ * \return devuelve 0 en caso de exito o -1 en caso de error
+ *
+ */
 int employee_setSueldo(Employee* this,int sueldo)
 {
 	int retorno =-1;
-		if(this!=NULL ) //hacer la funcion de validar el numero positivo y ademas pasar el id
+		if(this!=NULL )
 		{
 			this->sueldo=sueldo;
 			retorno=0;
@@ -137,9 +211,18 @@ int employee_setSueldo(Employee* this,int sueldo)
 		return retorno;
 }
 
+
+
+/** \brief Obtiene sueldo de un empleado
+ *
+ * \param this
+ * \param sueldo
+ * \return devuelve 0 en caso de exito o -1 en caso de error
+ *
+ */
 int employee_getSueldo(Employee* this,int* sueldo)
 {
-	int retorno=1;
+	int retorno=-1;
 
 	if(this!=NULL && sueldo>0)
 	{
@@ -151,21 +234,6 @@ int employee_getSueldo(Employee* this,int* sueldo)
 
 
 
-static int isValidLetra(char *item, int cant)
-{
-	int retorno=-1;
-//	int i;
-//	for(i=0;i<cant;i++)
-//	{
-//		while((item[i] != '\0' && item[i]== ' ') || (item[i] >= 'a' && item[i] <= 'z')|| (item[i] >= 'A' && item[i] <= 'Z'))
-//		{
-//			retorno=EXIT_SUCCESS;
-//		}
-//
-//	}
-//	printf("retorno del isvalidletra : %d",retorno);
-	return retorno;
-}
 
 
 Employee* buscarIdEmpleado(LinkedList* pArrayListEmployee, int id)
