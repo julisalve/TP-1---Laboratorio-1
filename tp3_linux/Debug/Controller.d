@@ -1,10 +1,10 @@
-Controller.o: ../Controller.c ../LinkedList.h ../Employee.h ../parser.h \
- ../general.h
+Controller.o: ../Controller.c ../LinkedList.h ../Employee.h ../general.h \
+ ../parser.h
 
 ../LinkedList.h:
 
 ../Employee.h:
 
-../parser.h:
-
 ../general.h:
+
+../parser.h:

@@ -74,6 +74,7 @@ int main()
                 controller_saveAsBinary("data.bin",listaEmpleados);
                 break;
             case 10:
+            	ll_deleteLinkedList(listaEmpleados);
             	printf("Aplicacion cerrada \n");
                 break;
           }

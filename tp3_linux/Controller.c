@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "LinkedList.h"
 #include "Employee.h"
 #include "parser.h"
-#include "general.h"
+
 
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
  *
@@ -16,7 +17,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 {
 	FILE* pFile;
 	pFile = fopen(path,"r");
-		if(pFile != NULL)
+		if(pFile != NULL && ll_len(pArrayListEmployee)==0 && pArrayListEmployee!=NULL)
 		{
 			parser_EmployeeFromText(pFile,pArrayListEmployee);
 			printf("\n Operacion exitosa.\n");
@@ -40,18 +41,29 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 {
     FILE * pFileBin;
-    pFileBin = fopen(path,"rb");
-    if(pFileBin != NULL)
+          pFileBin = fopen(path,"rb");
+    if(pFileBin != NULL )
+    		{
+
+    		if( pArrayListEmployee!=NULL && ll_len(pArrayListEmployee)==0 )
     		{
     			parser_EmployeeFromBinary(pFileBin,pArrayListEmployee);
     			printf("\n Operacion exitosa.\n");
     			fclose(pFileBin);
     		}
+    		}
     		else
     		{
-    			printf("ERROR: El archivo no pudo abrirse. \n");
+    			pFileBin=fopen(path,"wb");
+    			if(pFileBin!=NULL)
+    			{
+    				printf("ERROR: El archivo no pudo abrirse. \n");
+    			}
+    			else
+    			{
+    				printf("ERROR: El archivo no pudo abrirse. \n");
+    			}
     		}
-
     return 1;
 }
 
@@ -69,7 +81,6 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
 	char nombreStr[4096];
 	char horasTrabajadasStr[4096];
 	char sueldo [4096];
-
 	Employee *nuevoEmpleado;
 	if(pArrayListEmployee!=NULL)
 	{
@@ -100,7 +111,6 @@ int buscarMaximoIdGenerado(LinkedList *pArrayListEmployee)
 	        {
 	        	maximoId=pEmpleado->id;
 	        }
-
 		}retorno=maximoId;
 	}
 	return retorno;
@@ -119,105 +129,67 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 	int id;
 	int horasTrabajadas;
 	int sueldo;
-	int nuevasHorasTrabajadas;
-	int nuevoSueldo;
-	char bufferNombre[50];
 	char nombre[50];
-	int modificar = 0;
+	char bufferNombre[50];
+	int bufferHorasTrabajadas;
+	int bufferSueldo;
+	char modificacion[3];
 	int opcion;
 	char respuesta[3];
-	char continuarSubMenuModificar = 's';
-	int i;
-	getInt(&id,"Ingrese ID que desea modificar","NO es un id valido",1,1000000000,2);
-	for(i=0; i<ll_len(pArrayListEmployee);i++)
+	if(pArrayListEmployee!=NULL && ll_len(pArrayListEmployee)>0)
 	{
-		this = (Employee*) ll_get(pArrayListEmployee, i);
-		while(this->id != id)
-		{
-			getInt(&id,"No existe el id ingresado. Seleccione un ID\n","NO es un id valido\n",1,1000000000,2);
-		}
+	getInt(&id,"Ingrese ID que desea modificar","NO es un id valido",1,1000000000,2);
+	this=buscarIdEmpleado(pArrayListEmployee,id);
+	while(this==NULL)
+	{
+		getInt(&id,"No existe el id ingresado. Seleccione un ID\n","NO es un id valido\n",1,1000000000,2);
+	}
 		do
 		{
 			printf("Esta a punto de modificar el id %d - Nombre %s - Horas Trabajadas %d - Sueldo %d \n",this->id, this->nombre, this->horasTrabajadas, this->sueldo);
-			getInt(&opcion,"Indique la opcion que desea modificar: 1) Nombre, 2) HOras Trabajadas, 3)Sueldo, 4)Volver al menu principal \n","No es una opcion valida",1,4,2);
-switch(opcion)
-{
-case 1:
-	employee_getNombre(this,nombre);
-	getString(bufferNombre,"Ingrese un nombre\n","NO es un nombre valido \n",1,50,2);
-}
-
+			getInt(&opcion,"Indique la opcion que desea modificar: \n 1) Nombre, \n 2) HOras Trabajadas, \n 3)Sueldo, \n 4)Volver al menu principal \n","No es una opcion valida",1,4,2);
+			switch(opcion)
+			{
+			case 1:
+				employee_getNombre(this,nombre);
+				getString(bufferNombre,"Ingrese un nombre\n","NO es un nombre valido \n",1,50,2);
+				esSiONo(modificacion,"Confirma modificacion de nombre? si / no \n","NO es una respuesta valida\n",1,3,2);
+				if(strncmp(modificacion,"si",3)==0)
+				{
+					employee_setNombre(this,bufferNombre);
+					printf("Modificacion realizada con exito\n");
+				}
+				break;
+			case 2:
+				employee_getHorasTrabajadas(this,&horasTrabajadas);
+				getInt(&bufferHorasTrabajadas,"Ingrese horas trabajadas\n","NO es un dato valido \n",1,10000,2);
+				esSiONo(modificacion,"Confirma modificacion de horas trabajadas? si / no \n","NO es una respuesta valida\n",1,100000,2);
+				if(strncmp(modificacion,"si",3)==0)
+				{
+					employee_setHorasTrabajadas(this,bufferHorasTrabajadas);
+					printf("Modificacion realizada con exito\n");
+				}
+				break;
+			case 3:
+				employee_getSueldo(this,&sueldo);
+				getInt(&bufferSueldo,"Ingrese sueldo\n","NO es un dato valido \n",1,10000,2);
+				esSiONo(modificacion,"Confirma modificacion de sueldo? si / no \n","NO es una respuesta valida\n",1,100000,2);
+				if(strncmp(modificacion,"si",3)==0)
+				{
+					employee_setSueldo(this,bufferSueldo);
+					printf("Modificacion realizada con exito\n");
+				}
+				break;
+			}
+			esSiONo(respuesta,"Desea seguir modificando datos? si / no \n","NO es una respuesta valida\n",1,3,2);
 		}while(strncmp(respuesta,"si",3)==0);
 
-
-
-//	            switch(opcionMenu)
-//	            {
-//	            case 1:
-//	                employee_getNombre(this, nombre);
-//	                getValidStringRango("\nIngrese nombre: ","\nError. Solo se admiten letras",nombreAux,50);
-//	                confirma = getValidChar("\nRealmente quiere modificarlo?: (s/n)","\nReingrese", 's','n');
-//
-//	                if(confirma == 's')
-//	                {
-//	                    employee_setNombre(this,nombreAux);
-//	                    printf("\nEl nombre ha sido modificado");
-//	                }
-//	                else
-//	                {
-//	                    printf("\nLa modificacion ha sido cancelada");
-//	                }
-//
-//	                system("pause");
-//
-//	                break;
-//
-//	            case 2:
-//	                employee_getHorasTrabajadas(this, &horasTrabajadas);
-//	                nuevasHorasTrabajadas =getValidInt("\nIngrese horas trabajadas: ", "\nError. Solo se permiten numeros");
-//	                confirma = getValidChar("\nRealmente quiere modificarlo?: (s/n) ","\nReingrese", 's','n');
-//
-//	                if(confirma == 's')
-//	                {
-//	                    employee_setHorasTrabajadas(this,nuevasHorasTrabajadas);
-//	                    printf("\nLas horas trabajadas han sido modificado");
-//	                }
-//	                else
-//	                {
-//	                    printf("\nLa modificacion ha sido cancelada");
-//	                }
-//
-//	                system("pause");
-//
-//	                break;
-//
-//	            case 3:
-//	                nuevoSueldo =getValidInt("\nIngrese el nuevo sueldo: ", "\nError. Solo se permiten numeros");
-//	                employee_getSueldo(this,&sueldo);
-//	                confirma = getValidChar("\nRealmente quiere modificarlo?: (s/n) ","\nReingrese", 's','n');
-//
-//	                if(confirma == 's')
-//	                {
-//	                    employee_setSueldo(this,nuevoSueldo);
-//	                    printf("\nEl sueldo ha sido modificado");
-//	                }
-//	                else
-//	                {
-//	                    printf("\nLa modificacion ha sido cancelada");
-//	                }
-//                break;
-//	            case 4:
-//	                continuarSubMenuModificar = 'n';
-//	                break;
-//	            }
-//	        }
-//	        while(continuarSubMenuModificar == 's');
-//	    }
-//	    return 1;
-//
-//
+	}
 	return 1;
 }
+
+
+
 
 /** \brief Baja de empleado
  *
@@ -228,7 +200,30 @@ case 1:
  */
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+	Employee *this;
+		int id;
+		int index;
+		char respuesta[3];
+		if(pArrayListEmployee!=NULL && ll_len(pArrayListEmployee)>0)
+		{
+		getInt(&id,"Ingrese ID que desea dar de baja","NO es un id valido",1,1000000000,2);
+		this=buscarIdEmpleado(pArrayListEmployee,id);
+		while(this==NULL)
+		{
+			getInt(&id,"No existe el id ingresado. Seleccione un ID\n","NO es un id valido\n",1,1000000000,2);
+		}
+		printf("Id %d - Nombre %s - Horas trabajadas %d - Sueldo %d \n",this->id,this->nombre,this->horasTrabajadas,this->sueldo);
+		esSiONo(respuesta,"Realmente quiere dar de baja a este empleado? si / no \n","NO es una respuesta valida",1,3,2);
+		if(strncmp(respuesta,"si",3)==0)
+		{
+			index=ll_indexOf(pArrayListEmployee,id);
+			ll_remove(pArrayListEmployee,index);
+
+		}
+		}
+
+
+	return 1;
 }
 
 /** \brief Listar empleados
@@ -243,10 +238,13 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 
     Employee *pEmpleado;
     int i;
+    if(pArrayListEmployee!=NULL)
+    {
     for(i=0; i<ll_len(pArrayListEmployee); i++)
     {
         pEmpleado = ll_get(pArrayListEmployee, i);
         printf("%4d %15s %4d %6d\n", pEmpleado->id, pEmpleado->nombre, pEmpleado->horasTrabajadas, pEmpleado->sueldo);
+    }
     }
     return 1;
 }
@@ -260,7 +258,30 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int opcion;
+	if(pArrayListEmployee!=NULL && ll_len(pArrayListEmployee)>0)
+	{
+		getInt(&opcion,"Ingrese una opcion: \n 1)Ordenamiento por id \n 2)Ordenamiento por nombre \n 3)Ordenamiento por horas trabajadas \n 4)Ordenamiento por sueldo \n","NO es una opcion valida",1,4,2);
+
+		switch(opcion)
+		{
+		case 1:
+			ll_sort(pArrayListEmployee,employee_sortPorId,1);
+			break;
+		case 2:
+			ll_sort(pArrayListEmployee,employee_sortPorNombre,1);
+			break;
+		case 3:
+			ll_sort(pArrayListEmployee,employee_sortPorHorasTrabajadas,1);
+			break;
+		case 4:
+			ll_sort(pArrayListEmployee,employee_sortPorSueldo,1);
+			break;
+		}
+	}
+
+
+	return 1;
 }
 
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
@@ -272,14 +293,25 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
-//	FILE *pFile;
-//	Employee *nuevoEmpleado;
-//
-//	if(pArrayListEmployee!=NULL)
-//	{
-//	fopen(path,"w");
-//	fwrite(,sizeof(Employee),1,pFile);
-//	}
+FILE *pFile =NULL;
+Employee *pEmpleado;
+int i;
+int bufferId;
+char bufferNombre[50];
+int bufferHoras;
+int bufferSueldo;
+pFile=fopen(path,"w");
+	if(pArrayListEmployee != NULL && ll_len(pArrayListEmployee)==0)
+	{
+		for(i=0;i<ll_len(pArrayListEmployee);i++)
+		{
+			 pEmpleado = ll_get(pArrayListEmployee, i);
+			 employee_getId(pEmpleado,&bufferId);
+			 employee_getNombre(pEmpleado,bufferNombre);
+			 employee_getHorasTrabajadas(pEmpleado,&bufferHoras);
+			 employee_getSueldo(pEmpleado,&bufferSueldo);
+		}
+	}
 
 	return 1;
 }

@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "general.h"
+
+
 
 static int isValidLetra(char *item, int cant);
 
@@ -212,7 +213,90 @@ static int isValidLetra(char *item, int cant)
 }
 
 
+Employee* buscarIdEmpleado(LinkedList* pArrayListEmployee, int id)
+{
+	Employee*this=NULL;
+	int i;
+	if(pArrayListEmployee!=NULL)
+	{
+		for(i=0; i<ll_len(pArrayListEmployee);i++)
+			{
+				this = ll_get(pArrayListEmployee, i);
+//				printf("id ingresado %d - id this %d\n",id,this->id);
+				if(this->id == id)
+				{
+					return this;
+				}
+			}
+	}
+	return this;
+}
 
+
+int employee_sortPorId( void * datoUno, void *datoDos)
+{
+	int idUno;
+	int idDos;
+	idUno=((Employee*)datoUno)->id;
+	idDos=((Employee*)datoDos)->id;
+	if(idUno > idDos)
+	{
+		return 1;
+	}
+	else if(idUno < idDos)
+	{
+		return -1;
+	}
+	return 0;
+}
+
+int employee_sortPorNombre( void * datoUno, void *datoDos)
+{
+
+	if(strncmp(((Employee *)datoUno)->nombre,((Employee *)datoDos)->nombre,50)>0)
+	{
+		return 1;
+	}
+	else if(strncmp(((Employee *)datoUno)->nombre,((Employee *)datoDos)->nombre,50)<0)
+	{
+		return -1;
+	}
+	return 0;
+}
+
+int employee_sortPorHorasTrabajadas( void * datoUno, void *datoDos)
+{
+	int horasUno;
+	int horasDos;
+	horasUno=((Employee*)datoUno)->horasTrabajadas;
+	horasDos=((Employee*)datoDos)->horasTrabajadas;
+	if(horasUno > horasDos)
+	{
+		return 1;
+	}
+	else if(horasUno < horasDos)
+	{
+		return -1;
+	}
+	return 0;
+}
+
+int employee_sortPorSueldo( void * datoUno, void *datoDos)
+{
+	int sueldoUno;
+	int sueldoDos;
+	sueldoUno=((Employee*)datoUno)->sueldo;
+	sueldoDos=((Employee*)datoDos)->sueldo;
+	if(sueldoUno > sueldoDos)
+	{
+		return 1;
+	}
+	else if(sueldoUno < sueldoDos)
+	{
+		return -1;
+	}
+	return 0;
+}
 //
 ///**
 // * \brief Valida si el dato es alfanumerico y devuelve el exito o el facaso.
