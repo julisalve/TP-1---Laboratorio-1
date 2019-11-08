@@ -11,22 +11,6 @@ static int isValidLetra(char *item, int cant);
 Employee* employee_new()
 {
 	return malloc(sizeof(Employee));
-//	Employee *this;
-//	this= malloc(sizeof(Employee));
-//	if(this == NULL)
-//	    {
-//	        printf("\nNo hay mas lugar para cargar empleados");
-//
-//	    }
-//
-//	    else
-//	    {
-//	        this->id = 0;
-//	        strcpy(this->nombre, "");
-//	        this->horasTrabajadas = 0;
-//	        this->sueldo = 0;
-//	    }
-//	return this;
 }
 
 
@@ -52,20 +36,6 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 	{
 		printf("ERROR, el sueldo no es un valor numerico \n");
 	}
-//id = atoi(idStr);
-//
-//horasTrabajadas = atoi(horasTrabajadasStr);
-//	sueldo = atoi(sueldoStr);
-
-//	printf("id char %s, id numero %d \n horas trab string %s , hs trabajads numero %d \n sueldo str %s .- sueldo numero %d \n - nombre %s \n",idStr,id, horasTrabajadasStr,horasTrabajadas,sueldoStr,sueldo,nombreStr);
-//int a;
-//a=	employee_setId(this,id);
-//	printf("lo q devuelve la funcion set id%d\n",a);
-//	a=employee_setSueldo(this, sueldo);
-//	printf("lo q devuelve la funcion set sueldo%d\n",a);
-//	a=	employee_setNombre(this, nombreStr);
-//	printf("lo q devuelve la funcion set nombre%d\n",a);
-
 	if( employee_setId(this,id)==0 && employee_setNombre(this, nombreStr)==0 && employee_setHorasTrabajadas(this, horasTrabajadas)==0 && employee_setSueldo(this, sueldo)==0)
 	{
 		retorno=this;
@@ -75,7 +45,6 @@ Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajad
 		employee_delete(this);
 	}
 	}
-
 	return retorno;
 }
 
@@ -141,7 +110,6 @@ int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
 			this->horasTrabajadas=horasTrabajadas;
 			retorno=0;
 		}
-
 		return retorno;
 }
 
@@ -183,19 +151,6 @@ int employee_getSueldo(Employee* this,int* sueldo)
 
 
 
-
-
-//static int isValidNumero(int *numero)
-//{
-//	int retorno=-1;
-//	if(numero<=9 && numero >=0)
-//	{
-//
-//	}
-//	return retorno;
-//}
-
-
 static int isValidLetra(char *item, int cant)
 {
 	int retorno=-1;
@@ -222,7 +177,6 @@ Employee* buscarIdEmpleado(LinkedList* pArrayListEmployee, int id)
 		for(i=0; i<ll_len(pArrayListEmployee);i++)
 			{
 				this = ll_get(pArrayListEmployee, i);
-//				printf("id ingresado %d - id this %d\n",id,this->id);
 				if(this->id == id)
 				{
 					return this;
@@ -297,48 +251,3 @@ int employee_sortPorSueldo( void * datoUno, void *datoDos)
 	}
 	return 0;
 }
-//
-///**
-// * \brief Valida si el dato es alfanumerico y devuelve el exito o el facaso.
-// * \param *resultado son las letras y/o numeros obtenidas
-// * \param *mensaje es el mensaje a ser mostrado.
-// * \param *mensajeError es el mensaje  de error
-// * \param minimo es la cantidad de letras y/o numeros minimos que puede ingresar el usuario
-// * \param maximo es la cantidad de letras y/o numeros maximos que puede ingresar el usuario
-// * \param reintentos es la cantidad de veces que el usuario puede reintentar .
-// * \return devuelve el -1 en caso de no ser letras y/o numeros, o el 0 en caso de exito.
-// *
-// */
-//int esAlfaNumerico(char *resultado,
-//			char *mensaje,
-//			char *mensajeError,
-//			int minimo,
-//			int maximo,
-//			int reintentos)
-//{
-//	int retorno =-1;
-//	int i=0;
-//	char buffer[4096];
-//	strncpy(buffer,resultado,maximo+1);//strncpy(buffer,resultado,maximo+1);
-//   	int cantidad;
-//   	int contador=0;
-//   	cantidad=strlen(buffer);
-//   	while((buffer[0] != '\0' && buffer[i]== ' ') || (buffer[i] >= 'a' && buffer[i] <= 'z')|| (buffer[i] >= 'A' && buffer[i] <= 'Z')||(buffer[i] >= '0' && buffer[i] <= '9'))
-//		  {
-//			contador++;
-//			i++;
-//		   }
-//if(cantidad==contador)
-//	{
-//	strncpy(resultado,buffer,maximo+1);
-//	retorno = 0;
-//	}
-//else
-//{
-//	printf("%s",mensajeError);
-//}
-//	return retorno;
-//}
-//
-
-
