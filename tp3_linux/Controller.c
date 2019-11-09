@@ -41,14 +41,13 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 {
 	FILE * pFileBin;
-	pFileBin = fopen(path,"rb");
+	pFileBin = fopen(path,"r+b");
 	if(pFileBin != NULL )
 	{
 		if( pArrayListEmployee!=NULL && ll_len(pArrayListEmployee)==0 )
 		{
 			parser_EmployeeFromBinary(pFileBin,pArrayListEmployee);
 			printf("\n Operacion exitosa.\n");
-			fclose(pFileBin);
 		}
 	}
 	else
@@ -63,6 +62,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 			printf("ERROR: El archivo no pudo abrirse. \n");
 		}
 	}
+	fclose(pFileBin);
 	return 1;
 }
 
@@ -258,6 +258,7 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 		for(i=0; i<ll_len(pArrayListEmployee); i++)
 		{
 			pEmpleado = ll_get(pArrayListEmployee, i);
+			printf("i %d\n",i);
 			printf("%4d %15s %4d %6d\n", pEmpleado->id, pEmpleado->nombre, pEmpleado->horasTrabajadas, pEmpleado->sueldo);
 		}
 	}
@@ -355,12 +356,15 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 	FILE *pFileBin =NULL;
 	Employee *pEmpleado;
 	int i;
-	pFileBin=fopen(path,"wb");
+
+	pFileBin=fopen(path,"rb");
 	if(pArrayListEmployee != NULL && ll_len(pArrayListEmployee)>0 && pFileBin!=NULL)
 	{
+		pFileBin=fopen(path,"wb");
 		for(i=0;i<ll_len(pArrayListEmployee);i++)
 		{
 			pEmpleado = ll_get(pArrayListEmployee, i);
+			printf("id %d  nombre %s horas %d \n",pEmpleado->id,pEmpleado->nombre,pEmpleado->horasTrabajadas);
 			if(pEmpleado!=NULL)
 			{
 				fwrite(pEmpleado,sizeof(Employee),1,pFileBin);

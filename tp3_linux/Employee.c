@@ -234,8 +234,13 @@ int employee_getSueldo(Employee* this,int* sueldo)
 
 
 
-
-
+/** \brief Busca un empleado por id
+ *
+ * \param pArrayListEmployee
+ * \param id
+ * \return devuelve NULL en caso de que no exista empleado con el id indicado, o develve el empleado en caso de exito
+ *
+ */
 Employee* buscarIdEmpleado(LinkedList* pArrayListEmployee, int id)
 {
 	Employee*this=NULL;
@@ -254,7 +259,13 @@ Employee* buscarIdEmpleado(LinkedList* pArrayListEmployee, int id)
 	return this;
 }
 
-
+/** \brief Ordena ID de manera ascendente
+ *
+ * \param datoUno
+ * \param datoDos
+ * \return devuelve 1 en caso de orden ascendente, -1 en orden descendente, o -1 en caso contrario
+ *
+ */
 int employee_sortPorId( void * datoUno, void *datoDos)
 {
 	int idUno;
@@ -272,6 +283,14 @@ int employee_sortPorId( void * datoUno, void *datoDos)
 	return 0;
 }
 
+
+/** \brief Ordena por NOmbre de manera ascendente
+ *
+ * \param datoUno
+ * \param datoDos
+ * \return devuelve 1 en caso de orden ascendente, -1 en orden descendente, o -1 en caso contrario
+ *
+ */
 int employee_sortPorNombre( void * datoUno, void *datoDos)
 {
 
@@ -286,6 +305,13 @@ int employee_sortPorNombre( void * datoUno, void *datoDos)
 	return 0;
 }
 
+/** \brief Ordena horas trabajadas de manera ascendente
+ *
+ * \param datoUno
+ * \param datoDos
+ * \return devuelve 1 en caso de orden ascendente, -1 en orden descendente, o -1 en caso contrario
+ *
+ */
 int employee_sortPorHorasTrabajadas( void * datoUno, void *datoDos)
 {
 	int horasUno;
@@ -303,6 +329,15 @@ int employee_sortPorHorasTrabajadas( void * datoUno, void *datoDos)
 	return 0;
 }
 
+
+
+/** \brief Ordena sueldo de manera ascendente
+ *
+ * \param datoUno
+ * \param datoDos
+ * \return devuelve 1 en caso de orden ascendente, -1 en orden descendente, o -1 en caso contrario
+ *
+ */
 int employee_sortPorSueldo( void * datoUno, void *datoDos)
 {
 	int sueldoUno;

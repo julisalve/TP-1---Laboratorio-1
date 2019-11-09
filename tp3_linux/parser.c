@@ -59,7 +59,7 @@ int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)// reci
 int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
 	int retorno=-1;
-	int r;
+	int r=0;
 	Employee *nuevoEmpleado;
 	if(pArrayListEmployee!=NULL && pFile!=NULL)
 	{
@@ -71,6 +71,7 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 					if (r==1 )
 				{
 					ll_add(pArrayListEmployee,nuevoEmpleado);
+					printf("id %d , nombre %s , horas trabajadas %d \n",nuevoEmpleado->id,nuevoEmpleado->nombre,nuevoEmpleado->horasTrabajadas);
 					retorno=EXIT_SUCCESS;
 				}
 			}while(!feof(pFile));
