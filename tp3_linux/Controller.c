@@ -42,7 +42,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 {
 	FILE * pFileBin;
 	pFileBin = fopen(path,"r+b");
-	if(pFileBin != NULL )
+	if(pFileBin != NULL)
 	{
 		if( pArrayListEmployee!=NULL && ll_len(pArrayListEmployee)==0 )
 		{
@@ -55,7 +55,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 		pFileBin=fopen(path,"wb");
 		if(pFileBin!=NULL)
 		{
-			printf("SE ha creado un archivo binario. \n");
+			printf("Se ha creado un archivo binario. \n");
 		}
 		else
 		{
@@ -258,7 +258,6 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 		for(i=0; i<ll_len(pArrayListEmployee); i++)
 		{
 			pEmpleado = ll_get(pArrayListEmployee, i);
-			printf("i %d\n",i);
 			printf("%4d %15s %4d %6d\n", pEmpleado->id, pEmpleado->nombre, pEmpleado->horasTrabajadas, pEmpleado->sueldo);
 		}
 	}
@@ -364,7 +363,7 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 		for(i=0;i<ll_len(pArrayListEmployee);i++)
 		{
 			pEmpleado = ll_get(pArrayListEmployee, i);
-			printf("id %d  nombre %s horas %d \n",pEmpleado->id,pEmpleado->nombre,pEmpleado->horasTrabajadas);
+			//printf("id %d  nombre %s horas %d \n",pEmpleado->id,pEmpleado->nombre,pEmpleado->horasTrabajadas);
 			if(pEmpleado!=NULL)
 			{
 				fwrite(pEmpleado,sizeof(Employee),1,pFileBin);
@@ -373,7 +372,6 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 		printf("Archivo guardado con exito \n");
 	}
 	fclose(pFileBin);
-	return 1;
 	return 1;
 }
 
