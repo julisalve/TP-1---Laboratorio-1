@@ -91,7 +91,7 @@ static int addNode(LinkedList* this, int nodeIndex,void* pElement)
 	if(this!=NULL && nodeIndex>=0 && nodeIndex <=this ->size)
 	{
 		pNodo=malloc(sizeof(pNodo));
-		if(pNodo!=NULL)
+		if(pNodo==NULL)
 		{
 			returnAux= -1;
 		}
@@ -115,20 +115,6 @@ static int addNode(LinkedList* this, int nodeIndex,void* pElement)
 	}
 	return returnAux;
 }
-
-// borrar lista
-//delete borrar memoria
-//size si esta en cero
-//push poner un elemento en donde se quiera
-//pop devolver el elemento de cualqier posicion . get del size y sacarlo remove
-//contanis(ver si existe un elemento en la lissta)
-//contains all (pasa array de elementos y verificar que la sublista es sublista del la lista original
-// agregar remove node.
-
-
-
-
-
 
 
 
@@ -158,7 +144,14 @@ int test_addNode(LinkedList* this, int nodeIndex,void* pElement)
 int ll_add(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
-
+    int nodeIndex=ll_len(this);//this->size;
+    if(this!=NULL)
+    {
+    	if(addNode(this,nodeIndex,pElement)==0)
+    	{
+    		returnAux=0;
+    	}
+    }
     return returnAux;
 }
 
@@ -173,7 +166,15 @@ int ll_add(LinkedList* this, void* pElement)
 void* ll_get(LinkedList* this, int index)
 {
     void* returnAux = NULL;
-
+    Node* pNodo;
+if(this!=NULL && index>=0 && index<this ->size)
+{
+	pNodo=getNode(this, index);
+	if(pNodo!=NULL)
+	{
+		returnAux=pNodo->pElement;
+	}
+}
     return returnAux;
 }
 
@@ -190,7 +191,16 @@ void* ll_get(LinkedList* this, int index)
 int ll_set(LinkedList* this, int index,void* pElement)
 {
     int returnAux = -1;
-
+    Node* pNodo;
+    if(this!=NULL && index>=0 && index<this ->size)
+    {
+    	pNodo=getNode(this, index);
+    	if(pNodo!=NULL)
+    	{
+    	pNodo->pElement=pElement;
+    	returnAux=0;
+    	}
+    }
     return returnAux;
 }
 
@@ -206,9 +216,46 @@ int ll_set(LinkedList* this, int index,void* pElement)
 int ll_remove(LinkedList* this,int index)
 {
     int returnAux = -1;
+    Node*pNodo;
+	Node *pNodoAnterior;
+	Node*pNodoPosterior;
+    if(this!=NULL && index>=0 && index<this ->size)
+    {
+    	pNodo=getNode(this,index);
+    	pNodoPosterior=getNode(this,index+1);
+    	if(pNodo!=NULL)
+    	{
+    		this->size--;
+    		if(index==0)
+    					{
+    						pNodoPosterior->pNextNode=pNodo->pNextNode;
+    						this ->pFirstNode = pNodoPosterior;
+    					}
+    					else
+    					{
+//    						pNodoAnterior = getNode(this,nodeIndex-1);
+//    						pNodo->pNextNode = pNodoAnterior->pNextNode;
+//    						pNodoAnterior->pNextNode =pNodo;
+    					}
 
+    		//TERMINAR!!
+
+
+
+    	returnAux=0;
+    	}
+    }
     return returnAux;
 }
+
+
+
+
+
+			pNodo->pElement = pElement;
+
+		}
+	}
 
 
 /** \brief Elimina todos los elementos de la lista
@@ -381,4 +428,20 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
     return returnAux;
 
 }
+
+
+
+// borrar lista
+//delete borrar memoria
+//size si esta en cero
+//push poner un elemento en donde se quiera
+//pop devolver el elemento de cualqier posicion . get del size y sacarlo remove
+//contanis(ver si existe un elemento en la lissta)
+//contains all (pasa array de elementos y verificar que la sublista es sublista del la lista original
+// agregar remove node.
+
+
+
+
+
 
