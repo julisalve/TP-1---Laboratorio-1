@@ -170,10 +170,9 @@ void* ll_get(LinkedList* this, int index)
 if(this!=NULL && index>=0 && index<this ->size)
 {
 	pNodo=getNode(this, index);
-	if(pNodo!=NULL)
-	{
+
 		returnAux=pNodo->pElement;
-	}
+
 }
     return returnAux;
 }
@@ -195,11 +194,8 @@ int ll_set(LinkedList* this, int index,void* pElement)
     if(this!=NULL && index>=0 && index<this ->size)
     {
     	pNodo=getNode(this, index);
-    	if(pNodo!=NULL)
-    	{
     	pNodo->pElement=pElement;
     	returnAux=0;
-    	}
     }
     return returnAux;
 }
@@ -215,47 +211,33 @@ int ll_set(LinkedList* this, int index,void* pElement)
  */
 int ll_remove(LinkedList* this,int index)
 {
-    int returnAux = -1;
-    Node*pNodo;
+	int returnAux = -1;
+	Node*pNodo;
 	Node *pNodoAnterior;
-	Node*pNodoPosterior;
-    if(this!=NULL && index>=0 && index<this ->size)
-    {
-    	pNodo=getNode(this,index);
-    	pNodoPosterior=getNode(this,index+1);
-    	if(pNodo!=NULL)
-    	{
-    		this->size--;
-    		if(index==0)
-    					{
-    						pNodoPosterior->pNextNode=pNodo->pNextNode;
-    						this ->pFirstNode = pNodoPosterior;
-    					}
-    					else
-    					{
-//    						pNodoAnterior = getNode(this,nodeIndex-1);
-//    						pNodo->pNextNode = pNodoAnterior->pNextNode;
-//    						pNodoAnterior->pNextNode =pNodo;
-    					}
-
-    		//TERMINAR!!
-
-
-
-    	returnAux=0;
-    	}
-    }
-    return returnAux;
+	if(this!=NULL && index>=0 && index<ll_len(this))//this ->size
+	{
+		pNodo=getNode(this,index);
+		pNodoAnterior=getNode(this,index-1);
+		if(pNodo!=NULL)
+		{
+			this->size--;
+			if(index==0)
+			{
+				this ->pFirstNode = pNodo->pNextNode;
+				free(pNodo);
+			}
+			else
+			{
+				pNodoAnterior->pNextNode=pNodo->pNextNode;
+				free(pNodo);
+			}
+			returnAux=0;
+		}
+	}
+	return returnAux;
 }
 
 
-
-
-
-			pNodo->pElement = pElement;
-
-		}
-	}
 
 
 /** \brief Elimina todos los elementos de la lista
@@ -267,9 +249,18 @@ int ll_remove(LinkedList* this,int index)
  */
 int ll_clear(LinkedList* this)
 {
-    int returnAux = -1;
-
-    return returnAux;
+	int returnAux = -1;
+	int index;
+	if(this!=NULL)
+	{
+		for(index=0;index>ll_len(this);index++)
+		{
+			ll_remove(this, index);
+		}
+		this->size=0;
+		returnAux=0;
+	}
+	return returnAux;
 }
 
 
@@ -283,7 +274,12 @@ int ll_clear(LinkedList* this)
 int ll_deleteLinkedList(LinkedList* this)
 {
     int returnAux = -1;
-
+    if(this!=NULL)
+    {
+    	ll_clear(this);
+    	free(this);
+    	returnAux=0;
+    }
     return returnAux;
 }
 
@@ -298,7 +294,19 @@ int ll_deleteLinkedList(LinkedList* this)
 int ll_indexOf(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
-
+    int index;
+    Node *pNodo;
+    if(this!=NULL)
+    {
+    	for(index=0;index<ll_len(this);index++)
+    	{
+    		pNodo=getNode(this,index);
+    		if(pNodo->pElement==pElement)
+    		{
+    			returnAux = index;
+    		}
+    	}
+    }
     return returnAux;
 }
 
@@ -312,9 +320,19 @@ int ll_indexOf(LinkedList* this, void* pElement)
  */
 int ll_isEmpty(LinkedList* this)
 {
-    int returnAux = -1;
-
-    return returnAux;
+	int returnAux = -1;
+	if(this!=NULL)
+	{
+		if(ll_len(this)>0)
+		{
+			returnAux=0;
+		}
+		else if (ll_len(this)==0)
+		{
+			returnAux=1;
+		}
+	}
+	return returnAux;
 }
 
 /** \brief Inserta un nuevo elemento en la lista en la posicion indicada
@@ -328,9 +346,15 @@ int ll_isEmpty(LinkedList* this)
  */
 int ll_push(LinkedList* this, int index, void* pElement)
 {
-    int returnAux = -1;
-
-    return returnAux;
+	int returnAux = -1;
+	if(this!=NULL && index>=0 && index<=ll_len(this))//this->size
+	{
+		if(addNode(this,index,pElement)==0)
+		{
+			returnAux=0;
+		}
+	}
+	return returnAux;
 }
 
 
@@ -345,7 +369,13 @@ int ll_push(LinkedList* this, int index, void* pElement)
 void* ll_pop(LinkedList* this,int index)
 {
     void* returnAux = NULL;
-
+    Node *pNodo;
+    if(this!=NULL && index>=0 && index<this->size)
+    {
+    	pNodo=getNode(this, index);
+		returnAux=pNodo->pElement;
+		ll_remove(this,index);
+    }
     return returnAux;
 }
 
@@ -360,9 +390,21 @@ void* ll_pop(LinkedList* this,int index)
 */
 int ll_contains(LinkedList* this, void* pElement)
 {
-    int returnAux = -1;
-
-    return returnAux;
+	int returnAux = -1;
+	int index;
+	if(this!=NULL )
+	{
+		index=ll_indexOf(this,pElement);
+		if(index==-1)
+		{
+			returnAux=0;
+		}
+		else
+		{
+		returnAux=1;
+		}
+	}
+	return returnAux;
 }
 
 /** \brief  Determina si todos los elementos de la lista (this2)
