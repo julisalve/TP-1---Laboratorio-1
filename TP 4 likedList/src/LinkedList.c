@@ -17,6 +17,8 @@ LinkedList* ll_newLinkedList(void)
 {
     LinkedList* this;
     this =malloc(sizeof(LinkedList));
+    this->size =0;
+    this->pFirstNode =NULL;
     return this;
 }
 
@@ -165,16 +167,14 @@ int ll_add(LinkedList* this, void* pElement)
  */
 void* ll_get(LinkedList* this, int index)
 {
-    void* returnAux = NULL;
-    Node* pNodo;
-if(this!=NULL && index>=0 && index<this ->size)
-{
-	pNodo=getNode(this, index);
-
+	void* returnAux = NULL;
+	Node* pNodo;
+	if(this!=NULL && index>=0 && index<this->size)
+	{
+		pNodo=getNode(this, index);
 		returnAux=pNodo->pElement;
-
-}
-    return returnAux;
+	}
+	return returnAux;
 }
 
 
@@ -295,13 +295,11 @@ int ll_indexOf(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
     int index;
-    Node *pNodo;
     if(this!=NULL)
     {
     	for(index=0;index<ll_len(this);index++)
     	{
-    		pNodo=getNode(this,index);
-    		if(pNodo->pElement==pElement)
+    		if(ll_get(this,index)==pElement)
     		{
     			returnAux = index;
     		}
@@ -401,7 +399,8 @@ int ll_contains(LinkedList* this, void* pElement)
 		}
 		else
 		{
-		returnAux=1;
+			returnAux=1;
+
 		}
 	}
 	return returnAux;
@@ -413,14 +412,26 @@ int ll_contains(LinkedList* this, void* pElement)
  * \param this LinkedList* Puntero a la lista
  * \param this2 LinkedList* Puntero a la lista
  * \return int Retorna  (-1) Error: si alguno de los punteros a las listas son NULL
-                        ( 1) Si los elementos de (this2) estan contenidos en la lista (this)
-                        ( 0) si los elementos de (this2) NO estan contenidos en la lista (this)
+                        ( 1) Si los elementos de (this2si los elementos de () estan contenidos en la lista (this)
+                        ( 0) this2) NO estan contenidos en la lista (this)
 */
 int ll_containsAll(LinkedList* this,LinkedList* this2)
 {
-    int returnAux = -1;
-
-    return returnAux;
+	int returnAux = -1;
+	int index;
+	if(this!=NULL && this2!=NULL)
+	{
+		returnAux=1;
+		for(index=0;index<ll_len(this2);index++)
+		{
+			if(ll_contains(this,ll_get(this2,index))==0)
+			{
+				returnAux=0;
+				break;
+			}
+		}
+	}
+	return returnAux;
 }
 
 /** \brief Crea y retorna una nueva lista con los elementos indicados
@@ -436,7 +447,15 @@ int ll_containsAll(LinkedList* this,LinkedList* this2)
 LinkedList* ll_subList(LinkedList* this,int from,int to)
 {
     LinkedList* cloneArray = NULL;
-
+    int index;
+    if(this!=NULL && from>=0 && to>=0 && from<=ll_len(this) && to<=ll_len(this) && from<=to)
+    {
+    	cloneArray=ll_newLinkedList();
+    	for(index=from;index<to;index++)
+    	{
+    		ll_add(cloneArray,ll_get(this,index));
+    	}
+    }
     return cloneArray;
 }
 
@@ -450,9 +469,13 @@ LinkedList* ll_subList(LinkedList* this,int from,int to)
 */
 LinkedList* ll_clone(LinkedList* this)
 {
-    LinkedList* cloneArray = NULL;
-
-    return cloneArray;
+	LinkedList* cloneArray = NULL;
+	if(this!=NULL)
+	{
+		cloneArray=ll_newLinkedList();
+		cloneArray=ll_subList(this,0,ll_len(this));
+	}
+	return cloneArray;
 }
 
 
@@ -465,9 +488,13 @@ LinkedList* ll_clone(LinkedList* this)
  */
 int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 {
-    int returnAux =-1;
+	int returnAux =-1;
+	if(this!=NULL)
+	{
 
-    return returnAux;
+	}
+
+	return returnAux;
 
 }
 
