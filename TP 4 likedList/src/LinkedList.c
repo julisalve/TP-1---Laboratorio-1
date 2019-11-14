@@ -489,7 +489,10 @@ LinkedList* ll_clone(LinkedList* this)
 int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 {
 	int returnAux =-1;
-	if(this!=NULL)
+	int i;
+	Node* pNodo1;
+	Node* pNodo2;
+	if(this!=NULL && pFunc !=NULL)
 	{
 
 	}

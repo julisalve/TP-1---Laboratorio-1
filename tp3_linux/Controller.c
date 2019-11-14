@@ -41,28 +41,29 @@ int controller_loadFromText(char* path , LinkedList* pArrayListEmployee)
 int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 {
 	FILE * pFileBin;
-	pFileBin = fopen(path,"r+b");
+	pFileBin = fopen(path,"rb");
 	if(pFileBin != NULL)
 	{
-		if( pArrayListEmployee!=NULL && ll_len(pArrayListEmployee)==0 )
+		if( pArrayListEmployee!=NULL && ll_len(pArrayListEmployee)==0 )//
 		{
 			parser_EmployeeFromBinary(pFileBin,pArrayListEmployee);
 			printf("\n Operacion exitosa.\n");
 		}
+		fclose(pFileBin);
 	}
-	else
-	{
-		pFileBin=fopen(path,"wb");
-		if(pFileBin!=NULL)
-		{
-			printf("Se ha creado un archivo binario. \n");
-		}
-		else
-		{
-			printf("ERROR: El archivo no pudo abrirse. \n");
-		}
-	}
-	fclose(pFileBin);
+//	else
+//	{
+//		pFileBin=fopen(path,"wb");
+//		if(pFileBin!=NULL)
+//		{
+//			printf("Se ha creado un archivo binario. \n");
+//		}
+//		else
+//		{
+//			printf("ERROR: El archivo no pudo abrirse. \n");
+//		}
+//	}
+
 	return 1;
 }
 
@@ -356,22 +357,23 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 	Employee *pEmpleado;
 	int i;
 
-	pFileBin=fopen(path,"rb");
+	pFileBin=fopen(path,"wb");
 	if(pArrayListEmployee != NULL && ll_len(pArrayListEmployee)>0 && pFileBin!=NULL)
 	{
-		pFileBin=fopen(path,"wb");
 		for(i=0;i<ll_len(pArrayListEmployee);i++)
 		{
 			pEmpleado = ll_get(pArrayListEmployee, i);
-			//printf("id %d  nombre %s horas %d \n",pEmpleado->id,pEmpleado->nombre,pEmpleado->horasTrabajadas);
+		//	printf("id %d  nombre %s horas %d \n",pEmpleado->id,pEmpleado->nombre,pEmpleado->horasTrabajadas);
 			if(pEmpleado!=NULL)
+
 			{
 				fwrite(pEmpleado,sizeof(Employee),1,pFileBin);
 			}
 		}
 		printf("Archivo guardado con exito \n");
+		fclose(pFileBin);
 	}
-	fclose(pFileBin);
+
 	return 1;
 }
 
