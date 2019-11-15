@@ -499,32 +499,53 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 		for(i=0;i<ll_len(this);i++)
 		{
 			pElement1= ll_get(this,i);
-			for(j=i+1;j<ll_len(this);j++)
+			pElement2= ll_get(this,i+1);
+			if(order==1 )
 			{
-				pElement2= ll_get(this,j);
-				if(order==1 )
+				while(pFunc(pElement1, pElement2)==1)
 				{
-					if(pFunc(pElement1, pElement2)==1) // orden ascendente
-					{
-						bElement=pElement1;
-						pElement1=pElement2;
-						pElement2=bElement;
-					}
+					bElement=pElement1;
+					pElement1=pElement2;
+					pElement2=bElement;
 				}
-				else
-				{
-					if(pFunc(pElement1, pElement2)==-1) // orden descendente
-					{
-						bElement=pElement2;
-						pElement2=pElement1;
-						pElement1=bElement;
-					}
-				}
-				ll_set(this,i,pElement1);
-				ll_set(this,j,pElement2);
 			}
+
+
 		}
-		returnAux=0;
+
+
+
+
+
+//		for(i=0;i<ll_len(this);i++)
+//		{
+//			pElement1= ll_get(this,i);
+//			for(j=i+1;j<ll_len(this);j++)
+//			{
+//				pElement2= ll_get(this,j);
+//				if(order==1 )
+//				{
+//					if(pFunc(pElement1, pElement2)==1) // orden ascendente
+//					{
+//						bElement=pElement1;
+//						pElement1=pElement2;
+//						pElement2=bElement;
+//					}
+//				}
+//				else
+//				{
+//					if(pFunc(pElement1, pElement2)==-1) // orden descendente
+//					{
+//						bElement=pElement2;
+//						pElement2=pElement1;
+//						pElement1=bElement;
+//					}
+//				}
+//				ll_set(this,i,pElement1);
+//				ll_set(this,j,pElement2);
+//			}
+//		}
+//		returnAux=0;
 	}
 	return returnAux;
 }
