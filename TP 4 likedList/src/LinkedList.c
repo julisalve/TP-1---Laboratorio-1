@@ -490,11 +490,41 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 {
 	int returnAux =-1;
 	int i;
-	Node* pNodo1;
-	Node* pNodo2;
-	if(this!=NULL && pFunc !=NULL)
+	int j;
+	Node* pElement1;
+	Node* pElement2;
+	Node* bElement;
+	if(this!=NULL && pFunc !=NULL && (order==1 || order==0))
 	{
-
+		for(i=0;i<ll_len(this);i++)
+		{
+			pElement1= ll_get(this,i);
+			for(j=i+1;j<ll_len(this);j++)
+			{
+				pElement2= ll_get(this,j);
+				if(order==1 )
+				{
+					if(pFunc(pElement1, pElement2)==1) // orden ascendente
+					{
+						bElement=pElement1;
+						pElement1=pElement2;
+						pElement2=bElement;
+					}
+				}
+				else
+				{
+					if(pFunc(pElement1, pElement2)==-1) // orden descendente
+					{
+						bElement=pElement2;
+						pElement2=pElement1;
+						pElement1=bElement;
+					}
+				}
+				ll_set(this,i,pElement1);
+				ll_set(this,j,pElement2);
+			}
+		}
+		returnAux=0;
 	}
 	return returnAux;
 }
@@ -512,6 +542,9 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 
 
 
+
+//CONTAR ELEMENTOS.HORAS, O SUELDO O EMPLEADOS. ACUMULADOS
+//FILTRA. GENERAR UNA LISTA REDUCIDA. SI EL ELEMENTO ESTA, SE AGREGA A OTRA LISTA.
 
 
 
