@@ -14,7 +14,20 @@
 
 Employee* employee_new()
 {
-	return malloc(sizeof(Employee));
+	Employee *this;
+	this= malloc(sizeof(Employee));
+	if(this!=NULL)
+	{
+		this->id=0;
+		this->horasTrabajadas=0;
+		this->sueldo=0;
+		strcpy(this->nombre,"");
+	}
+	else
+	{
+		printf("NO hay lugar libre \n");
+	}
+	return this;
 }
 
 

@@ -490,31 +490,42 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 {
 	int returnAux =-1;
 	int i;
-	int j;
+	//int j;
 	Node* pElement1;
 	Node* pElement2;
 	Node* bElement;
+	int flag;
 	if(this!=NULL && pFunc !=NULL && (order==1 || order==0))
 	{
-		for(i=0;i<ll_len(this);i++)
+		do
+		{
+		flag=0;
+		for(i=0;i<ll_len(this)-1;i++)
 		{
 			pElement1= ll_get(this,i);
 			pElement2= ll_get(this,i+1);
-			if(order==1 )
+			if(order==1 && pFunc(pElement1, pElement2)==1) // ascendente
 			{
-				while(pFunc(pElement1, pElement2)==1)
-				{
-					bElement=pElement1;
-					pElement1=pElement2;
-					pElement2=bElement;
-				}
+				bElement=pElement1;
+				pElement1=pElement2;
+				pElement2=bElement;
+				flag=1;
 			}
-
-
+			else if(order==0 && pFunc(pElement1, pElement2)==-1)
+			{
+				bElement=pElement1;
+				pElement1=pElement2;
+				pElement2=bElement;
+				flag=1;
+			}
+			ll_set(this,i,pElement1);
+			ll_set(this,i+1,pElement2);
 		}
-
-
-
+		}while(flag==1);
+		returnAux=0;
+	}
+	return returnAux;
+}
 
 
 //		for(i=0;i<ll_len(this);i++)
@@ -546,9 +557,9 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 //			}
 //		}
 //		returnAux=0;
-	}
-	return returnAux;
-}
+//	}
+//	return returnAux;
+//}
 
 
 

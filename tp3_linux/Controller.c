@@ -365,7 +365,6 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 			pEmpleado = ll_get(pArrayListEmployee, i);
 		//	printf("id %d  nombre %s horas %d \n",pEmpleado->id,pEmpleado->nombre,pEmpleado->horasTrabajadas);
 			if(pEmpleado!=NULL)
-
 			{
 				fwrite(pEmpleado,sizeof(Employee),1,pFileBin);
 			}
