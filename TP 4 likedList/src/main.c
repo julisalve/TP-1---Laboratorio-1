@@ -124,13 +124,13 @@ int main()
             case 9:
                 controller_saveAsBinary("data.bin",listaEmpleados);
                 break;
-//            case 10:
-//            	ll_deleteLinkedList(listaEmpleados);
-//            	printf("Aplicacion cerrada \n");
-//                break;
             case 10:
-            	controller_mapEmployee(listaEmpleados);
-            	break;
+            	ll_deleteLinkedList(listaEmpleados);
+            	printf("Aplicacion cerrada \n");
+                break;
+//            case 10:
+//            	controller_mapEmployee(listaEmpleados);
+//            	break;
           }
     }while(opcion != 10);
 
