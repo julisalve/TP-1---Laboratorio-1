@@ -367,3 +367,19 @@ int employee_sortPorSueldo( void * datoUno, void *datoDos)
 	}
 	return 0;
 }
+
+
+void Employee_pFuncMapSueldo(void* empleado)
+{
+	int sueldo;
+	sueldo=((Employee*)empleado)->sueldo;
+//	Employee *empleado;
+//	empleado= ((Employee*)elemento);
+	printf("employee pfun maps");
+	if(empleado!=NULL && sueldo<70)
+	{
+		printf("Datos originales empleado: \nID: %d - Nombre: %s - Sueldo %d\n",((Employee*)empleado)->id,((Employee*)empleado)->nombre,sueldo);
+		sueldo=sueldo*1.20;
+		printf("Datos nuevos: \nID: %d - Nombre: %s - Sueldo %d\n",((Employee*)empleado)->id,((Employee*)empleado)->nombre,sueldo);
+	}
+}

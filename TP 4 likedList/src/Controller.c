@@ -376,3 +376,16 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 	return 1;
 }
 
+
+
+int controller_mapEmployee(LinkedList* pArrayListEmployee)
+{
+int retorno =-1;
+if(pArrayListEmployee!=NULL)
+{
+	printf("controller map");
+	ll_map(pArrayListEmployee, Employee_pFuncMapSueldo);
+	return 0;
+}
+return retorno;
+}

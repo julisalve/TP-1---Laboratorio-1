@@ -53,4 +53,12 @@ int ll_containsAll(LinkedList* this,LinkedList* this2);//presgunta si son todoss
 LinkedList* ll_subList(LinkedList* this,int from,int to);// permite generar una lisat nueva desde una lista existente, dandole elemento en particular. Por jemplo cuando paginas
 LinkedList* ll_clone(LinkedList* this);// clono la lista por ejemplo pra tener distintos criterios de ordenamiento. ES un caso partiucular del sublist. de la posicion 0 a la n.
 int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order);//recibe el contexto y un punter a una funcion. funcion que contiene al algorito de ordenamiento. lo unico que cmabia es el criterio de ordenamiento, DEbe permitir cambios a los tipos de elementos. PUntero a ufncion, se le pasa al ordenar un puntero a una funcion que esta desarrollado para un caso en aprticualr. Esa funcion se le pasa dos elementos. la funcion criterio es la que sabe a que se refiere (a empleado,a banan, o a autos) recibe 2 empelados o dos autos , se fja si es mas alto y devuelve 1, -1 o 0.
+
+
+int ll_map(LinkedList * this, void(*pFunc)(void*));
+LinkedList* ll_filter(LinkedList *this, int (*pFunc)(void*));
+LinkedList* ll_reduce(LinkedList *this, int (*pFunc)(void*));
+int ll_contar(LinkedList * this, int(*pFunc)(void*));
+
+
 // ademas vamos a constuir otras funciones, por ejemplo imprimir lista. o si quiero que los elementos aumenten u 10% todos. SE le pasa a la funcion criterio un solo elemento.O criterio selectivo de eliminacion de elementos. Filter (para filtrar cn un cierto parametro)

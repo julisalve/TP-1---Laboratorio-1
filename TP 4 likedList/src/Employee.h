@@ -32,4 +32,7 @@ int employee_sortPorId( void * datoUno, void *datoDos);
 int employee_sortPorNombre( void * datoUno, void *datoDos);
 int employee_sortPorHorasTrabajadas( void * datoUno, void *datoDos);
 int employee_sortPorSueldo( void * datoUno, void *datoDos);
+
+
+void Employee_pFuncMapSueldo(void* empleado);
 #endif // employee_H_INCLUDED
