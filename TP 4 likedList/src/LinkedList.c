@@ -528,173 +528,115 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 }
 
 
+
+
+///** \brief Mapea los elementos de la lista utilizando la funcion criterio recibida como parametro
+// * \param pList LinkedList* Puntero a la lista
+// * \param pFunc (*pFunc) Puntero a la funcion criterio
+// * \param
+// * \return int Retorna  (-1) Error: si el puntero a la listas o la funcion criterio  es NULL
+//                                ( 0) Si ok
+// */
+//int ll_map(LinkedList * this, void(*pFunc)(void*))
+//{
+//	int retorno =-1;
+//	int i;
+//	Node* pElement1;
+//	if(this!=NULL && pFunc!=NULL)
+//	{
+//		printf("ll map");
 //		for(i=0;i<ll_len(this);i++)
 //		{
-//			pElement1= ll_get(this,i);
-//			for(j=i+1;j<ll_len(this);j++)
+//			pElement1=ll_get(this,i);
+//
+//			pFunc(pElement1);
+//			ll_set(this,i,pElement1);
+//		}
+//		retorno=0;
+//	}
+//	return retorno;
+//}
+//
+///** \brief Filtra los elementos de la lista utilizando la funcion criterio recibida como parametro, creando una lista nueva
+// * \param pList LinkedList* Puntero a la lista
+// * \param pFunc (*pFunc) Puntero a la funcion criterio , la cual devuelve 1 si cumple con la condicion, o -1 si no la cumple
+// * \param
+// * \return int Retorna  la lista nueva filtrada
+// */
+//
+//LinkedList* ll_filter(LinkedList *this, int (*pFunc)(void*))
+//{
+//	int i;
+//	LinkedList* listaFiltrada =NULL;
+//	Node*pElement1;
+//	if(this!=NULL && pFunc!=NULL)
+//	{
+//		listaFiltrada=ll_newLinkedList();
+//		for(i=0;i<ll_len(this);i++)
+//		{
+//			pElement1=ll_get(this,i);
+//			if(pFunc(pElement1)==1)
 //			{
-//				pElement2= ll_get(this,j);
-//				if(order==1 )
-//				{
-//					if(pFunc(pElement1, pElement2)==1) // orden ascendente
-//					{
-//						bElement=pElement1;
-//						pElement1=pElement2;
-//						pElement2=bElement;
-//					}
-//				}
-//				else
-//				{
-//					if(pFunc(pElement1, pElement2)==-1) // orden descendente
-//					{
-//						bElement=pElement2;
-//						pElement2=pElement1;
-//						pElement1=bElement;
-//					}
-//				}
-//				ll_set(this,i,pElement1);
-//				ll_set(this,j,pElement2);
+//				ll_add(listaFiltrada,pElement1);
 //			}
 //		}
-//		returnAux=0;
 //	}
-//	return returnAux;
+//	return listaFiltrada;
 //}
-
-
-/** \brief Mapea los elementos de la lista utilizando la funcion criterio recibida como parametro
- * \param pList LinkedList* Puntero a la lista
- * \param pFunc (*pFunc) Puntero a la funcion criterio
- * \param
- * \return int Retorna  (-1) Error: si el puntero a la listas o la funcion criterio  es NULL
-                                ( 0) Si ok
- */
-int ll_map(LinkedList * this, void(*pFunc)(void*))
-{
-	int retorno =-1;
-	int i;
-	Node* pElement1;
-	if(this!=NULL && pFunc!=NULL)
-	{
-		printf("ll map");
-		for(i=0;i<ll_len(this);i++)
-		{
-			pElement1=ll_get(this,i);
-
-			pFunc(pElement1);
-			ll_set(this,i,pElement1);
-		}
-		retorno=0;
-	}
-	return retorno;
-}
-
-/** \brief Filtra los elementos de la lista utilizando la funcion criterio recibida como parametro, creando una lista nueva
- * \param pList LinkedList* Puntero a la lista
- * \param pFunc (*pFunc) Puntero a la funcion criterio , la cual devuelve 1 si cumple con la condicion, o -1 si no la cumple
- * \param
- * \return int Retorna  la lista nueva filtrada
- */
-
-LinkedList* ll_filter(LinkedList *this, int (*pFunc)(void*))
-{
-	int i;
-	LinkedList* listaFiltrada =NULL;
-	Node*pElement1;
-	if(this!=NULL && pFunc!=NULL)
-	{
-		listaFiltrada=ll_newLinkedList();
-		for(i=0;i<ll_len(this);i++)
-		{
-			pElement1=ll_get(this,i);
-			if(pFunc(pElement1)==1)
-			{
-				ll_add(listaFiltrada,pElement1);
-			}
-		}
-	}
-	return listaFiltrada;
-}
-
-
-/** \brief Reduce los elementos de la lista utilizando la funcion criterio recibida como parametro, reduciendo la lista original
- * \param pList LinkedList* Puntero a la lista
- * \param pFunc (*pFunc) Puntero a la funcion criterio , la cual devuelve 1 si cumple con la condicion, o -1 si no la cumple
- * \param
- * \return int Retorna  la lista reducida
- */
-LinkedList* ll_reduce(LinkedList *this, int (*pFunc)(void*))
-{
-	int i;
-	Node* pElement1;
-	int cantidad;
-	if(this!=NULL && pFunc!=NULL)
-	{
-		cantidad=this->size;
-		for(i=0;i<cantidad;i++)
-		{
-			pElement1=ll_get(this,i);
-			if(pFunc(pElement1)==-1)
-			{
-				ll_remove(this,i);
-				this->size --;
-			}
-		}
-	}
-	return this;
-}
-
-
-/** \brief Cuenta los elementos de la lista utilizando la funcion criterio recibida como parametro
- * \param pList LinkedList* Puntero a la lista
- * \param pFunc (*pFunc) Puntero a la funcion criterio , la cual devuelve 1 si cumple con la condicion, o -1 si no la cumple
- * \param
- * \return int Retorna  el contador
- */
-int ll_contar(LinkedList * this, int(*pFunc)(void*))
-{
-	int retorno =-1;
-	int i;
-	int contador=0;
-	Node* pElement1;
-	if(this!=NULL && pFunc!=NULL)
-	{
-		for(i=0;i<ll_len(this);i++)
-		{
-			pElement1=ll_get(this,i);
-			if(pFunc(pElement1)==1)
-			{
-				contador++;
-			}
-		}
-		retorno=contador;
-	}
-	return retorno;
-}
-
-
-/** \brief A los empleados con salario menor a 70, se lo incrementa en un 20%
- * \param elemento
- * \param
- * \return int Retorna  el elemento.
- */
-
-
-
-// borrar lista
-//delete borrar memoria
-//size si esta en cero
-//push poner un elemento en donde se quiera
-//pop devolver el elemento de cualqier posicion . get del size y sacarlo remove
-//contanis(ver si existe un elemento en la lissta)
-//contains all (pasa array de elementos y verificar que la sublista es sublista del la lista original
-// agregar remove node.
-
-
-
-
-//CONTAR ELEMENTOS.HORAS, O SUELDO O EMPLEADOS. ACUMULADOS
-
-
-
+//
+//
+///** \brief Reduce los elementos de la lista utilizando la funcion criterio recibida como parametro, reduciendo la lista original
+// * \param pList LinkedList* Puntero a la lista
+// * \param pFunc (*pFunc) Puntero a la funcion criterio , la cual devuelve 1 si cumple con la condicion, o -1 si no la cumple
+// * \param
+// * \return int Retorna  la lista reducida
+// */
+//LinkedList* ll_reduce(LinkedList *this, int (*pFunc)(void*))
+//{
+//	int i;
+//	Node* pElement1;
+//	int cantidad;
+//	if(this!=NULL && pFunc!=NULL)
+//	{
+//		cantidad=this->size;
+//		for(i=0;i<cantidad;i++)
+//		{
+//			pElement1=ll_get(this,i);
+//			if(pFunc(pElement1)==-1)
+//			{
+//				ll_remove(this,i);
+//				this->size --;
+//			}
+//		}
+//	}
+//	return this;
+//}
+//
+//
+///** \brief Cuenta los elementos de la lista utilizando la funcion criterio recibida como parametro
+// * \param pList LinkedList* Puntero a la lista
+// * \param pFunc (*pFunc) Puntero a la funcion criterio , la cual devuelve 1 si cumple con la condicion, o -1 si no la cumple
+// * \param
+// * \return int Retorna  el contador
+// */
+//int ll_contar(LinkedList * this, int(*pFunc)(void*))
+//{
+//	int retorno =-1;
+//	int i;
+//	int contador=0;
+//	Node* pElement1;
+//	if(this!=NULL && pFunc!=NULL)
+//	{
+//		for(i=0;i<ll_len(this);i++)
+//		{
+//			pElement1=ll_get(this,i);
+//			if(pFunc(pElement1)==1)
+//			{
+//				contador++;
+//			}
+//		}
+//		retorno=contador;
+//	}
+//	return retorno;
+//}
 

@@ -373,8 +373,6 @@ void Employee_pFuncMapSueldo(void* empleado)
 {
 	int sueldo;
 	sueldo=((Employee*)empleado)->sueldo;
-//	Employee *empleado;
-//	empleado= ((Employee*)elemento);
 	printf("employee pfun maps");
 	if(empleado!=NULL && sueldo<70)
 	{

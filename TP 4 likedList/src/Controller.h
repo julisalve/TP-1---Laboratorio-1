@@ -10,4 +10,4 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee);
 
 int buscarMaximoIdGenerado(LinkedList *pArrayListEmployee);
 
-int controller_mapEmployee(LinkedList* pArrayListEmployee);
+//int controller_mapEmployee(LinkedList* pArrayListEmployee);

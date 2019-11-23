@@ -51,18 +51,6 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
 		}
 		fclose(pFileBin);
 	}
-//	else
-//	{
-//		pFileBin=fopen(path,"wb");
-//		if(pFileBin!=NULL)
-//		{
-//			printf("Se ha creado un archivo binario. \n");
-//		}
-//		else
-//		{
-//			printf("ERROR: El archivo no pudo abrirse. \n");
-//		}
-//	}
 
 	return 1;
 }
@@ -192,7 +180,6 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 			}
 			esSiONo(respuesta,"Desea seguir modificando datos? si / no \n","NO es una respuesta valida\n",1,3,2);
 		}while(strncmp(respuesta,"si",3)==0);
-
 	}
 	else
 	{
@@ -363,7 +350,6 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 		for(i=0;i<ll_len(pArrayListEmployee);i++)
 		{
 			pEmpleado = ll_get(pArrayListEmployee, i);
-		//	printf("id %d  nombre %s horas %d \n",pEmpleado->id,pEmpleado->nombre,pEmpleado->horasTrabajadas);
 			if(pEmpleado!=NULL)
 			{
 				fwrite(pEmpleado,sizeof(Employee),1,pFileBin);
@@ -377,15 +363,15 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 }
 
 
-
-int controller_mapEmployee(LinkedList* pArrayListEmployee)
-{
-int retorno =-1;
-if(pArrayListEmployee!=NULL)
-{
-	printf("controller map");
-	ll_map(pArrayListEmployee, Employee_pFuncMapSueldo);
-	return 0;
-}
-return retorno;
-}
+//
+//int controller_mapEmployee(LinkedList* pArrayListEmployee)
+//{
+//int retorno =-1;
+//if(pArrayListEmployee!=NULL)
+//{
+//	printf("controller map");
+//	ll_map(pArrayListEmployee, Employee_pFuncMapSueldo);
+//	return 0;
+//}
+//return retorno;
+//}

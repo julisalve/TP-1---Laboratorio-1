@@ -10,6 +10,8 @@ typedef struct
     int sueldo;
 }Employee;
 
+//SI SALE WARNING ES PORQUE LA ESTRUCTURA DEL TP 3 SE LLAMA DE LA MISMA MANERA QUE LA ESTRUCTURA DEL TESTING.
+
 Employee* employee_new();
 Employee* employee_newParametros(char* idStr,char* nombreStr,char* horasTrabajadasStr, char* sueldo);
 void employee_delete(Employee *this);

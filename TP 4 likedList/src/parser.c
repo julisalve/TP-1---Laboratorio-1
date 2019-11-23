@@ -74,7 +74,6 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 					if (r==1 )
 				{
 					ll_add(pArrayListEmployee,nuevoEmpleado);
-	//				printf("id %d , nombre %s , horas trabajadas %d \n",nuevoEmpleado->id,nuevoEmpleado->nombre,nuevoEmpleado->horasTrabajadas);
 					retorno=EXIT_SUCCESS;
 				}
 				}
